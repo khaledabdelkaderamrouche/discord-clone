@@ -1,5 +1,4 @@
 const express = require('express');
-const {TextDecoder, TextEncoder} = require("util");
 const http = require('http');
 const cors = require('cors');
 const mongoose = require('mongoose');
@@ -19,7 +18,6 @@ app.use('/api/auth',authRouter);
 const server=http.createServer(app);
 
 server.listen(PORT,()=>{
-
 
 
 });
