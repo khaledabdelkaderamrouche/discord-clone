@@ -3,7 +3,7 @@ const router=express.Router()
 const authControllers=require('../controllers/auth/authControllers');
 const Joi=require('joi');
 const validator= require('express-joi-validation').createValidator({})
-
+const auth =require ('../middleware/auth');
 
 const registerSchema = Joi.object({
     username: Joi.string().min(3).max(12).alphanum().required(),
@@ -25,4 +25,10 @@ router.post('/login',
     authControllers.controllers.postLogin
 )
 
+
+//test
+router.get('/test',auth,(req, res) =>{
+    res.send('PASSED');
+    }
+)
 module.exports = router;
