@@ -1,6 +1,6 @@
 import React from "react";
 import Box from "@mui/material/Box";
-import {styled} from "@mui/system";
+import { styled } from "@mui/system";
 import PropTypes from "prop-types";
 
 const BoxWrapper = styled("div")({
@@ -9,9 +9,9 @@ const BoxWrapper = styled("div")({
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    textAlign: "center",
-    background: "#a29bfe"
-
+    textAlign: "left",
+    background: "#a29bfe",
+    overflow: "scroll"
 });
 
 const AuthBox = (props) => {
@@ -20,7 +20,7 @@ const AuthBox = (props) => {
             <Box
                 sx={{
                     width: 700,
-                    height: '40vh',
+                    height: "65vh",
                     background: "#6c5ce7",
                     borderRadius: "5px",
                     boxShadow: "0 2px 10px 0 rgb(0 0 0 / 20%)",

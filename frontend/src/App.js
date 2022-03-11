@@ -10,7 +10,7 @@ import LoginPage from "./Pages/AuthPages/LoginPage";
 import RegisterPage from "./Pages/AuthPages/RegisterPage";
 import DashboardPage from "./Pages/DashboardPages/DashboardPage";
 
-function App() {
+function App () {
     return (
         <Router>
             <Routes>

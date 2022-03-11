@@ -1,6 +1,7 @@
 import React from "react";
-import {styled} from "@mui/system";
+import { styled } from "@mui/system";
 import PropTypes from "prop-types";
+import { Tooltip } from "@mui/material";
 
 const Wrapper = styled("div")({
     color: "#b9bbbe",
@@ -10,9 +11,8 @@ const Wrapper = styled("div")({
     width: "100%"
 });
 const Label = styled("p")({
-    color: "#hb9bbbe",
+    color: "#fff",
     textTransform: "uppercase",
-    fontWeight: "600",
     fontSize: "16px"
 });
 const Input = styled("input")({
@@ -28,24 +28,29 @@ const Input = styled("input")({
 });
 
 const InputWithLabel = (props) => {
-    const {value, setValue, label, type, placeholder} = props;
+    const { value, setValue, label, type, placeholder, tooltipHelper } = props;
     const handleValueChange = (event) => {
         setValue(event.target.value);
     };
     return (
-        <Wrapper>
-            <Label>{label}</Label>
-            <Input
-                value={value}
-                onChange={handleValueChange}
-                type={type}
-                placeholder={placeholder}
-            />
-        </Wrapper>
+        <Tooltip
+            title={tooltipHelper}
+        >
+            <Wrapper>
+                <Label>{label}</Label>
+                <Input
+                    value={value}
+                    onChange={handleValueChange}
+                    type={type}
+                    placeholder={placeholder}
+                />
+            </Wrapper>
+        </Tooltip>
     );
 };
 InputWithLabel.propTypes = {
     value: PropTypes.string.isRequired,
+    tooltipHelper: PropTypes.string,
     setValue: PropTypes.func.isRequired,
     label: PropTypes.string.isRequired,
     type: PropTypes.string.isRequired,

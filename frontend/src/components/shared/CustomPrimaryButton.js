@@ -2,7 +2,7 @@ import React from "react";
 import Button from "@mui/material/Button";
 import PropTypes from "prop-types";
 
-const CustomPrimaryButton = ({label, additionalStyles, disabled, onClick}) => {
+const CustomPrimaryButton = ({ label, additionalStyles, disabled, onClick }) => {
     return (
         <Button
             variant="contained"

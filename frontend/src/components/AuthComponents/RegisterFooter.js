@@ -6,14 +6,14 @@ import { useNavigate } from "react-router-dom";
 import { Tooltip } from "@mui/material";
 
 const getFormValidationMessage = (valid) => {
-    if (valid) { return "Press to log in !"; } else { return "Please enter a valid email address and password."; }
+    if (valid) { return "Press to register !"; } else { return "Please fill correctly all required fields."; }
 };
 
-const LoginFooter = ({ handleLogin, isFormValid }) => {
+const RegisterFooter = ({ handleRegister, isFormValid }) => {
     const navigate = useNavigate();
 
-    const redirectToRegister = () => {
-        navigate("/register");
+    const redirectToLogin = () => {
+        navigate("/login");
     };
     return (
         <>
@@ -22,24 +22,24 @@ const LoginFooter = ({ handleLogin, isFormValid }) => {
             >
                 <div>
                     <CustomPrimaryButton
-                        label={"Login"}
+                        label={"Register"}
                         additionalStyles={{ marginTop: 50 }}
                         disabled={!isFormValid}
-                        onClick={handleLogin}
+                        onClick={handleRegister}
                     />
                     <RedirectInfo
-                        text="No account ? "
-                        linkText="Register !"
-                        redirectHandler={redirectToRegister}
+                        text="Already have an account ? "
+                        linkText="Login !"
+                        redirectHandler={redirectToLogin}
                     />
                 </div>
             </Tooltip>
         </>
     );
 };
-LoginFooter.propTypes = {
+RegisterFooter.propTypes = {
     isFormValid: PropTypes.bool.isRequired,
-    handleLogin: PropTypes.func.isRequired
+    handleRegister: PropTypes.func.isRequired
 };
 
-export default LoginFooter;
+export default RegisterFooter;

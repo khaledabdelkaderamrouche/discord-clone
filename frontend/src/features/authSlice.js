@@ -1,4 +1,4 @@
-import {createSlice} from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
     userDetails: null
@@ -6,7 +6,7 @@ const initialState = {
 
 const authSlice = createSlice({
     name: "auth",
-    initialState: {value: initialState},
+    initialState: { value: initialState },
     reducers: {
         authAction: (state, action) => {
             state.value = action.payload;
