@@ -1,30 +1,36 @@
 import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import AuthBox from "../../components/shared/AuthBox";
 import RegisterForm from "../../components/AuthComponents/RegisterForm";
 import RegisterFooter from "../../components/AuthComponents/RegisterFooter";
-import { validateMail, validateName, validateNumber, validatePassword } from "../../Utils/Validators";
+import { validateMail, validateName, validateNumber, validatePassword } from "../../utils/Validators";
 import AuthHeader from "../../components/shared/AuthHeader";
+import { register } from "../../features/authSlice";
+import { useNavigate } from "react-router-dom";
 
 const RegisterPage = () => {
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const user = useSelector((state) => state.auth.value);
     const [mail, setMail] = useState("");
-    const [name, setName] = useState("");
+    const [username, setUsername] = useState("");
     const [number, setNumber] = useState("");
     const [password, setPassword] = useState("");
     const [isFormValid, setIsFormValid] = useState(false);
 
     useEffect(() => {
-        console.log("******************");
-        console.log(validateMail(mail));
-        console.log(validateName(name));
-        console.log(name);
-        console.log(validateNumber(number));
-        console.log(validatePassword(password));
-
-        setIsFormValid(validatePassword(password) && validateMail(mail) && validateName(name) && validateNumber(number));
-    }, [password, mail, name, number]);
-
+        setIsFormValid(validatePassword(password) && validateMail(mail) && validateName(username) && validateNumber(number));
+    }, [password, mail, username, number]);
+    useEffect(() => {
+        if (user && user.userDetails && user.userDetails.mail) { navigate("/dashboard"); }
+    }, [user]);
     const handleRegister = () => {
-        console.log("Register");
+        dispatch(register({
+            mail,
+            password,
+            username,
+            number
+        }));
     };
     return (
         <AuthBox>
@@ -35,8 +41,8 @@ const RegisterPage = () => {
             <RegisterForm
                 mail={mail}
                 setMail={setMail}
-                name={name}
-                setName={setName}
+                username={username}
+                setUsername={setUsername}
                 number={number}
                 setNumber={setNumber}
                 password={password}

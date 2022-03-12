@@ -2,7 +2,7 @@ import React from "react";
 import InputWithLabel from "../shared/InputWithLabel";
 import PropTypes from "prop-types";
 
-const RegisterForm = ({ mail, setMail, name, setName, password, setPassword, number, setNumber }) => {
+const RegisterForm = ({ mail, setMail, username, setUsername, password, setPassword, number, setNumber }) => {
     return (
         <>
             <InputWithLabel
@@ -14,10 +14,10 @@ const RegisterForm = ({ mail, setMail, name, setName, password, setPassword, num
                 placeholder="Your email address"
             />
             <InputWithLabel
-                value={name}
-                tooltipHelper={"Please enter a valid name"}
-                setValue={setName}
-                label='Name'
+                value={username}
+                tooltipHelper={"Please enter a valid username"}
+                setValue={setUsername}
+                label='Username'
                 type="text"
                 placeholder="Your name"
             />
@@ -45,8 +45,8 @@ RegisterForm.propTypes = {
     setMail: PropTypes.func.isRequired,
     password: PropTypes.string.isRequired,
     setPassword: PropTypes.func.isRequired,
-    name: PropTypes.string.isRequired,
-    setName: PropTypes.func.isRequired,
+    username: PropTypes.string.isRequired,
+    setUsername: PropTypes.func.isRequired,
     number: PropTypes.string.isRequired,
     setNumber: PropTypes.func.isRequired
 };

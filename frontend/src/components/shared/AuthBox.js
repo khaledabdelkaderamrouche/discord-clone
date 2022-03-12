@@ -20,7 +20,7 @@ const AuthBox = (props) => {
             <Box
                 sx={{
                     width: 700,
-                    height: "65vh",
+                    height: "auto",
                     background: "#6c5ce7",
                     borderRadius: "5px",
                     boxShadow: "0 2px 10px 0 rgb(0 0 0 / 20%)",

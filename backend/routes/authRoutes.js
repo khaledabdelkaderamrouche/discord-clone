@@ -6,12 +6,13 @@ const validator= require('express-joi-validation').createValidator({})
 const auth =require ('../middleware/auth');
 
 const registerSchema = Joi.object({
-    username: Joi.string().min(3).max(12).alphanum().required(),
-    password: Joi.string().min(6).max(16).required(),
+    username: Joi.string().min(2).max(12).regex(/^$|^[A-Za-z]([ ]*[A-Za-z]){0,12}[^\s]$/),
+    number: Joi.string().min(8).max(12).regex(/^\d([ -]?\d){7}$/),
+    password: Joi.string().min(8).max(28).regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@.$!%*?&])[A-Za-z\d@.$!%*?&]{8,}$/).required(),
     mail: Joi.string().email().required(),
 })
 const loginSchema = Joi.object({
-    password: Joi.string().min(6).max(16).alphanum().required(),
+    password: Joi.string().min(8).max(28).regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@.$!%*?&])[A-Za-z\d@.$!%*?&]{8,}$/).required(),
     mail: Joi.string().email().required(),
 })
 
