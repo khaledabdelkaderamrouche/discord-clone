@@ -7,6 +7,7 @@ import { validateMail, validateName, validateNumber, validatePassword } from "..
 import AuthHeader from "../../components/shared/AuthHeader";
 import { register } from "../../features/authSlice";
 import { useNavigate } from "react-router-dom";
+import AlertNotification from "../../components/shared/AlertNotification";
 
 const RegisterPage = () => {
     const navigate = useNavigate();
@@ -33,26 +34,29 @@ const RegisterPage = () => {
         }));
     };
     return (
-        <AuthBox>
-            <AuthHeader
-                header={"Welcome !"}
-                subHeader={"Happy to count you among us !"}
-            />
-            <RegisterForm
-                mail={mail}
-                setMail={setMail}
-                username={username}
-                setUsername={setUsername}
-                number={number}
-                setNumber={setNumber}
-                password={password}
-                setPassword={setPassword}
-            />
-            <RegisterFooter
-                isFormValid={isFormValid}
-                handleRegister={handleRegister}
-            />
-        </AuthBox>
+        <>
+            <AlertNotification/>
+            <AuthBox>
+                <AuthHeader
+                    header={"Welcome !"}
+                    subHeader={"Happy to count you among us !"}
+                />
+                <RegisterForm
+                    mail={mail}
+                    setMail={setMail}
+                    username={username}
+                    setUsername={setUsername}
+                    number={number}
+                    setNumber={setNumber}
+                    password={password}
+                    setPassword={setPassword}
+                />
+                <RegisterFooter
+                    isFormValid={isFormValid}
+                    handleRegister={handleRegister}
+                />
+            </AuthBox>
+        </>
     );
 };
 

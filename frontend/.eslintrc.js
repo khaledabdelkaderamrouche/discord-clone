@@ -29,6 +29,8 @@ module.exports = {
     "react-hooks/exhaustive-deps": "warn", // Checks effect dependencies
     "semi": ["warn", "always"],
     "quotes": ["warn", "double"],
+    "no-throw-literal": ["warn"],
+    "no-unreachable": ["warn"],
     "object-curly-spacing": ["warn", "always"],
     "key-spacing": ["warn", {"mode": "strict"}],
     "indent": ["warn", 4],

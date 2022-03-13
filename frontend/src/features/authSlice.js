@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import * as api from "../api/api";
 import { displayAlert } from "./alertSlice";
+import { handleResponse } from "../utils/ErrorHandler";
 
 const initialState =
     localStorage.getItem("userDetails")
@@ -19,6 +20,7 @@ export const authSlice = createSlice({
         logout: async (state, action) => {
             state.value = null;
             localStorage.removeItem("userDetails");
+            window.location.pathname = "/login";
         },
         registerSuccess: (state, action) => {
             state.value = action.payload;
@@ -34,15 +36,10 @@ export const login = (data) => async (dispatch) => {
     try {
         const response = await api.login(data);
         if (response.error) {
-            console.log(response)
+            const options = { ...handleResponse(response), ...{ filled: true } };
             dispatch(displayAlert({
                 open: true,
-                options: {
-                    text: response.message.message,
-                    title: response.message.code,
-                    severity: "error",
-                    filled: true
-                }
+                options: options
             }));
         } else {
             dispatch(loginSuccess(response.data));
@@ -63,14 +60,11 @@ export const register = (data) => async dispatch => {
     try {
         const response = await api.register(data);
         if (response.error) {
+            console.log(response);
+            const options = { ...handleResponse(response), ...{ filled: true } };
             dispatch(displayAlert({
                 open: true,
-                options: {
-                    text: response.message.message,
-                    title: response.message.code,
-                    severity: "error",
-                    filled: true
-                }
+                options: options
             }));
         } else {
             dispatch(registerSuccess(response.data));

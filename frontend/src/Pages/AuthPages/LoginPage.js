@@ -8,7 +8,7 @@ import { validateMail, validatePassword } from "../../utils/Validators";
 import AuthHeader from "../../components/shared/AuthHeader";
 import { login } from "../../features/authSlice";
 import { useNavigate } from "react-router-dom";
-import LoginAlert from "../../components/AuthComponents/LoginAlert";
+import AlertNotification from "../../components/shared/AlertNotification";
 
 const LoginPage = () => {
     const navigate = useNavigate();
@@ -33,7 +33,7 @@ const LoginPage = () => {
     };
     return (
         <>
-            <LoginAlert/>
+            <AlertNotification/>
             <AuthBox>
                 <AuthHeader
                     header={"Welcome Back!"}
