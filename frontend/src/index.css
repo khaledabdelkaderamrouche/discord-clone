@@ -11,3 +11,14 @@ code {
     font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+.white-placeholder::placeholder,
+::-webkit-input-placeholder {
+    color: #b2bec3;
+    font-size:smaller;
+    font-weight:100;
+}
+:-ms-input-placeholder {
+    color: #b2bec3;
+    font-size:smaller;
+    font-weight:100;
+}

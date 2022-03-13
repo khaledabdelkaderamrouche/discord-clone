@@ -10,7 +10,7 @@ const BoxWrapper = styled("div")({
     alignItems: "center",
     justifyContent: "center",
     textAlign: "left",
-    background: "#a29bfe",
+    background: "#dfe6e9",
     overflow: "scroll"
 });
 
@@ -21,7 +21,7 @@ const AuthBox = (props) => {
                 sx={{
                     width: 700,
                     height: "auto",
-                    background: "#6c5ce7",
+                    background: "#2d3436",
                     borderRadius: "5px",
                     boxShadow: "0 2px 10px 0 rgb(0 0 0 / 20%)",
                     display: "flex",

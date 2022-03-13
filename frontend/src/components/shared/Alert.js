@@ -11,10 +11,15 @@ const CustomAlert = ({ severity, title, text, outlined, filled, additionalStyles
             autoHideDuration={6000}
             onClose={handleClose}
             anchorOrigin={{ vertical: "top", horizontal: "center" }}
+            sx={{
+                width: "50%"
+            }}
         >
             <Alert
                 onClose={handleClose}
-                sx={{}}
+                sx={{
+                    width: "100%"
+                }}
                 severity={severity}
                 variant={outlined ? "outlined" : filled ? "filled" : ""}
                 style={additionalStyles || {}}

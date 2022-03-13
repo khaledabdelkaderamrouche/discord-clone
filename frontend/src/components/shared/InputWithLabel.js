@@ -18,13 +18,14 @@ const Label = styled("p")({
 const Input = styled("input")({
     flexGrow: 1,
     height: "40px",
-    border: "1px solid black",
+    border: "1px solid #b2bec3",
     borderRadius: "",
     color: "#dcddde",
     background: "#35393f",
     margin: 0,
     fontSize: "16px",
     padding: "0 15px"
+
 });
 
 const InputWithLabel = (props) => {
@@ -39,6 +40,7 @@ const InputWithLabel = (props) => {
             <Wrapper>
                 <Label>{label}</Label>
                 <Input
+                    className={"white-placeholder"}
                     value={value}
                     onChange={handleValueChange}
                     type={type}
