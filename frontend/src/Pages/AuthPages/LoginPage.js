@@ -8,6 +8,7 @@ import { validateMail, validatePassword } from "../../utils/Validators";
 import AuthHeader from "../../components/shared/AuthHeader";
 import { login } from "../../features/authSlice";
 import { useNavigate } from "react-router-dom";
+import LoginAlert from "../../components/AuthComponents/LoginAlert";
 
 const LoginPage = () => {
     const navigate = useNavigate();
@@ -22,7 +23,7 @@ const LoginPage = () => {
     }, [password, mail]);
     useEffect(() => {
         if (user && user.userDetails && user.userDetails.mail) { navigate("/dashboard"); }
-    }, [user]);
+    }, [user, navigate]);
 
     const handleLogin = () => {
         dispatch(login({
@@ -31,23 +32,26 @@ const LoginPage = () => {
         }));
     };
     return (
+        <>
+            <LoginAlert/>
+            <AuthBox>
+                <AuthHeader
+                    header={"Welcome Back!"}
+                    subHeader={"Happy to see you again !"}
+                />
+                <LoginForm
+                    mail={mail}
+                    setMail={setMail}
+                    password={password}
+                    setPassword={setPassword}
+                />
+                <LoginFooter
+                    isFormValid={isFormValid}
+                    handleLogin={handleLogin}
+                />
+            </AuthBox>
 
-        <AuthBox>
-            <AuthHeader
-                header={"Welcome Back!"}
-                subHeader={"Happy to see you again !"}
-            />
-            <LoginForm
-                mail={mail}
-                setMail={setMail}
-                password={password}
-                setPassword={setPassword}
-            />
-            <LoginFooter
-                isFormValid={isFormValid}
-                handleLogin={handleLogin}
-            />
-        </AuthBox>
+        </>
     );
 };
 

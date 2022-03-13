@@ -23,7 +23,7 @@ const RegisterPage = () => {
     }, [password, mail, username, number]);
     useEffect(() => {
         if (user && user.userDetails && user.userDetails.mail) { navigate("/dashboard"); }
-    }, [user]);
+    }, [user, navigate]);
     const handleRegister = () => {
         dispatch(register({
             mail,

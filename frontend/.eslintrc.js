@@ -19,6 +19,11 @@ module.exports = {
     'react',
     "react-hooks"
   ],
+  settings: {
+    "react": {
+      "version": "17.0.2"
+    }
+  },
   rules: {
     "react-hooks/rules-of-hooks": "error", // Checks rules of Hooks
     "react-hooks/exhaustive-deps": "warn", // Checks effect dependencies
