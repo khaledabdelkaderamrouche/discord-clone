@@ -1,25 +1,117 @@
 import React from "react";
 import Box from "@mui/material/Box";
+import Avatar from "@mui/material/Avatar";
 import PropTypes from "prop-types";
-import RedirectInfo from "../shared/RedirectInfo";
-import DashboardChatSpaceInput from "./DashboardChatSpaceInput";
+import { Typography } from "@mui/material";
+import { styled } from "@mui/system";
 
-const DashboardChatConversationSpace = (props) => {
+const MsgTime = (props) => {
+    return (
+        <Typography
+            sx={{ color: "#808e9b", textAlign: "left", fontSize: "x-small", fontStyle: "italic" }}
+            style={props.additionalStyles || {}}
+            variant="caption"
+        >
+            {props.children}
+        </Typography>
+    );
+};
+const UserName = (props) => {
+    return (
+        <Typography
+            sx={{ color: "#d2dae2", margin: "15px", textAlign: "left" }}
+            style={props.additionalStyles || {}}
+            variant="subtitle2"
+        >
+            {props.children}
+        </Typography>
+    );
+};
+const UserText = (props) => {
+    return (
+        <Typography
+            sx={{ color: "#d2dae2", margin: "15px", textAlign: "left" }}
+            style={props.additionalStyles || {}}
+            variant="subtitle2"
+        >
+            {props.children}
+        </Typography>
+    );
+};
+const WrapperRight = styled("div")({
+    display: "flex",
+    flexDirection: "row-reverse",
+    flexWrap: "nowrap",
+    justifyContent: "flex-start",
+    alignItems: "center",
+    width: "100%"
+});
+const WrapperLeft = styled("div")({
+    display: "flex",
+    flexDirection: "row",
+    flexWrap: "nowrap",
+    justifyContent: "flex-start",
+    alignItems: "center",
+    width: "100%"
+});
+const DashboardChatConversationItem = (props) => {
     return (
         <Box
             sx={{
                 display: "flex",
-                backgroundColor: "#fff",
-                color: "white",
-                alignContent: "center",
-                justifyContent: "center",
-                alignItems: "center",
+                flexWrap: "nowrap",
                 flexDirection: "column",
-                flexGrow: 1
+                justifyContent: "flex-start",
+                width: "100%",
+                backgroundColor: "#1e272e",
+                color: "white",
+                height: "auto"
             }}
         >
+            {
+                props.position === "right"
+                    ? (
+                        <>
+                            <WrapperRight>
+                                <Avatar src={require(`../../assets/avatars//${props.avatar}`)} sx={{ margin: "5px" }}/>
+                                <UserName>{props.user}</UserName>
+                                <MsgTime>{props.dateTime}</MsgTime>
+                            </WrapperRight>
+                            <UserText>{props.children}</UserText>
+                        </>
+                    )
+                    : (
+                        <>
+                            <WrapperLeft>
+                                <Avatar src={require(`../../assets/avatars//${props.avatar}`)} sx={{ margin: "5px" }}/>
+                                <UserName>{props.user}</UserName>
+                                <MsgTime>{props.dateTime}</MsgTime>
+                            </WrapperLeft>
+                            <UserText>{props.children}</UserText>
+                        </>
+                    )
+            }
         </Box>
     );
 };
+DashboardChatConversationItem.propTypes = {
+    avatar: PropTypes.string.isRequired,
+    user: PropTypes.string.isRequired,
+    dateTime: PropTypes.string.isRequired,
+    position: PropTypes.oneOf(["left", "right"]).isRequired,
+    children: PropTypes.any
+};
+MsgTime.propTypes = {
+    children: PropTypes.any,
+    additionalStyles: PropTypes.object
+};
+UserName.propTypes = {
+    children: PropTypes.any,
+    additionalStyles: PropTypes.object
+};
 
-export default DashboardChatConversationSpace;
+UserText.propTypes = {
+    children: PropTypes.any,
+    additionalStyles: PropTypes.object
+};
+export default DashboardChatConversationItem;

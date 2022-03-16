@@ -40,7 +40,7 @@ const DashboardGrid = () => {
             </Grid>
             <Grid item={true} md={9} >
                 <DashboardAppBar/>
-                <DashboardChatSpace/>
+                <DashboardChatSpace />
             </Grid>
 
         </Grid>
