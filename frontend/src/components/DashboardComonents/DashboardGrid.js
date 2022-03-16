@@ -38,7 +38,7 @@ const DashboardGrid = () => {
                     <DashboardFriend avatar={"64_10.png"} user="Samara Big Boss"/>
                 </DashboardFriendsBar>
             </Grid>
-            <Grid item={true} md={9} >
+            <Grid item={true} md={8} >
                 <DashboardAppBar/>
                 <DashboardChatSpace />
             </Grid>
