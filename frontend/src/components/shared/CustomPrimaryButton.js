@@ -18,7 +18,7 @@ const CustomPrimaryButton = ({ label, additionalStyles, disabled, onClick }) => 
                     backgroundColor: "#2d3436",
                     border: "1px solid #dfe6e9",
                     color: "#dfe6e9",
-                    boxShadow: "0px 2px 5px 3px rgba(255,255,255,1"
+                    boxShadow: "0px 2px 5px 3px rgba(255,255,255,1)"
                 }
 
             }}

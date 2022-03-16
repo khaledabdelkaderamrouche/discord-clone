@@ -1,21 +1,27 @@
 import React from "react";
 import DuoIcon from "@mui/icons-material/Duo";
 import Box from "@mui/material/Box";
-import { Divider, Skeleton, Stack } from "@mui/material";
+import { Skeleton, Stack } from "@mui/material";
 import PropTypes from "prop-types";
-import IconButton from "@mui/material/IconButton";
-import AddCircleIcon from '@mui/icons-material/AddCircle';
+import CustomAddButton from "../shared/CustomAddButton";
+import CustomDivider from "../shared/CustomDivider";
+
+const onClick = () => {
+    // TODO implement this
+};
 
 const DashboardRoomsBar = (props) => {
     return (
         <Box
             sx={{
-                height: "100vh",
+                height: "100%",
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "center",
-                background: "#ff8154",
+                background: "#1e272e",
+                borderRight: "1px solid #485460",
                 padding: "25px",
+                paddingBottom: "50px",
                 color: "white"
             }}
         >
@@ -24,23 +30,8 @@ const DashboardRoomsBar = (props) => {
                 marginBottom: "5px",
                 padding: "15px"
             }}/>
-            <Divider flexItem={true} color={"white"} light={true} variant={"fullWidth"} sx={{
-                borderColor: "white",
-                marginBottom: "20px"
-            }}/>
-            <IconButton aria-label="Add Room" sx={{
-                border: "1px solid #dfe6e9",
-                marginBottom:"15px",
-                "&:hover": {
-                    backgroundColor: "#1e272e",
-                    border: "1px solid #1e272e"
-                }
-            }}>
-                <AddCircleIcon sx={{
-                    fontSize: "60px",
-                    color:"white"
-                }}/>
-            </IconButton>
+            <CustomDivider/>
+            <CustomAddButton disabled={false} onClick={onClick}/>
             <Stack direction="column" spacing={2}>
                 {
                     props.children
@@ -48,7 +39,7 @@ const DashboardRoomsBar = (props) => {
                             props.children
                         )
                         : (
-                            [...Array(props.numberOfRooms)].map((e, i) => <Skeleton key={i} variant="rounded" width={70} height={70} />)
+                            [...Array(props.numberOfRooms)].map((e, i) => <Skeleton key={i} variant="rounded" width={70} height={70} sx={{ bgcolor: "rgba(72, 84, 96,0.5)" }}/>)
 
                         )
                 }

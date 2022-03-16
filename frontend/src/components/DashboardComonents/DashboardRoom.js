@@ -4,7 +4,6 @@ import PropTypes from "prop-types";
 import { hashCode } from "../../utils/manipulations";
 
 function stringToColor (string) {
-    console.log(hashCode(string));
     return hashCode(string);
 }
 function stringAvatar (name) {
@@ -19,7 +18,6 @@ function stringAvatar (name) {
     };
 }
 const DashboardRoom = (props) => {
-    console.log(stringAvatar(props.user));
     return (
         <Avatar {...stringAvatar(props.user)} variant={"rounded"}/>
     );

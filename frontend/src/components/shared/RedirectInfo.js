@@ -30,8 +30,8 @@ const RedirectInfo = ({
 };
 RedirectInfo.propTypes = {
     text: PropTypes.string.isRequired,
-    linkText: PropTypes.string.isRequired,
-    redirectHandler: PropTypes.func.isRequired,
+    linkText: PropTypes.string,
+    redirectHandler: PropTypes.func,
     additionalStyles: PropTypes.object
 };
 

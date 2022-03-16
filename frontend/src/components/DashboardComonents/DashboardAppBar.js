@@ -22,7 +22,7 @@ const DashboardAppBar = () => {
 
     return (
         <AppBar position="static" sx={{
-            backgroundColor: "#485460",
+            backgroundColor: "#1e272e",
             borderBottom: "1px solid #485460",
             display: "flex",
             flexDirection: "row-reverse"
