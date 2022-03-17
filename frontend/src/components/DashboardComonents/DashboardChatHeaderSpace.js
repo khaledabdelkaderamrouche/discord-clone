@@ -14,7 +14,7 @@ const DashboardChatHeaderSpace = (props) => {
                 justifyContent: "flex-start"
             }}
         >
-            <RedirectInfo text={"You have 3/9 online friends"} additionalStyles={{ fontSize: "large", color: props.theme.textColor1}} />
+            <RedirectInfo text={"You have 3/9 online friends"} additionalStyles={{ fontSize: "large", color: props.theme.textColor1 }} />
         </Box>
     );
 };

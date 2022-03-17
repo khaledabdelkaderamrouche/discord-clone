@@ -30,7 +30,14 @@ const DashboardRoomsBar = (props) => {
                 padding: "15px"
             }}/>
             <CustomDivider/>
-            <CustomAddButton disabled={false} onClick={onClick}/>
+            <CustomAddButton disabled={false} onClick={onClick} additionalStyles={{
+                color: props.theme.textColor1,
+                backgroundColor: props.theme.textColor1,
+                border: "1px solid " + props.theme.textColor1,
+                "&:hover": {
+                    boxShadow: "0px 2px 5px 3px rgba(255,255,255,1)"
+                }
+            }}/>
             <Stack direction="column" spacing={2}>
                 {
                     props.children
