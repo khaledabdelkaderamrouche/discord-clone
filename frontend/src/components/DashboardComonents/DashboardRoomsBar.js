@@ -18,11 +18,10 @@ const DashboardRoomsBar = (props) => {
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "center",
-                background: "#1e272e",
                 borderRight: "1px solid #485460",
                 padding: "25px",
                 paddingBottom: "50px",
-                color: "white"
+                color: props.theme.textColor1
             }}
         >
             <DuoIcon sx={{
@@ -50,6 +49,7 @@ const DashboardRoomsBar = (props) => {
 
 DashboardRoomsBar.propTypes = {
     children: PropTypes.any,
-    numberOfRooms: PropTypes.number.isRequired
+    numberOfRooms: PropTypes.number.isRequired,
+    theme: PropTypes.object.isRequired
 };
 export default DashboardRoomsBar;

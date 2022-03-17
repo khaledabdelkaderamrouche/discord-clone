@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 
 import CustomDivider from "../shared/CustomDivider";
 import RedirectInfo from "../shared/RedirectInfo";
-import FriendWrapper from "../shared/FriendWrapper";
+import { WrapperFriends } from "../shared/Wrappers";
 import CustomPrimaryButton from "../shared/CustomPrimaryButton";
 
 const DashboardFriendsBar = (props) => {
@@ -18,20 +18,18 @@ const DashboardFriendsBar = (props) => {
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "center",
-                background: "#1e272e",
                 borderRight: "1px solid #485460",
                 padding: "25px",
-                paddingBottom: "75px",
-                color: "white"
+                paddingBottom: "75px"
             }}
         >
             <CustomPrimaryButton
                 label={"Add new friend"}
-                additionalStyles={{ backgroundColor: "transparent", color: "white" }}
+                additionalStyles={{ backgroundColor: "transparent", color: props.theme.textColor1 }}
                 disabled={false}
                 onClick={onCLick}
             />
-            <RedirectInfo text={"You have 3/9 online friends"} additionalStyles={{ height: "0.6em", padding: "10px" }} />
+            <RedirectInfo text={"You have 3/9 online friends"} additionalStyles={{ height: "0.6em", padding: "10px", color: props.theme.textColor1 }} />
 
             <CustomDivider/>
 
@@ -44,10 +42,10 @@ const DashboardFriendsBar = (props) => {
                         )
                         : (
                             [...Array(props.numberOfFriends)].map((e, i) =>
-                                <FriendWrapper key={`d${i}`} >
+                                <WrapperFriends key={`d${i}`} >
                                     <Skeleton key={`i${i}`} variant="circular" width={64} height={64} sx={{ margin: "5px", bgcolor: "rgba(72, 84, 96,0.5)" }}/>
                                     <Skeleton key={`t${i}`} variant="text" width={180} sx={{ bgcolor: "rgba(72, 84, 96,0.5)" }}/>
-                                </FriendWrapper>
+                                </WrapperFriends>
                             )
 
                         )
@@ -59,6 +57,7 @@ const DashboardFriendsBar = (props) => {
 
 DashboardFriendsBar.propTypes = {
     children: PropTypes.any,
-    numberOfFriends: PropTypes.number.isRequired
+    numberOfFriends: PropTypes.number.isRequired,
+    theme: PropTypes.object.isRequired
 };
 export default DashboardFriendsBar;

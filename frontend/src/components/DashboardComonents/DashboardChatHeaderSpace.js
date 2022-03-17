@@ -10,15 +10,16 @@ const DashboardChatHeaderSpace = (props) => {
                 display: "flex",
                 height: "5vh",
                 width: "100%",
-                backgroundColor: "#1e272e",
-                color: "white",
                 alignItems: "center",
                 justifyContent: "flex-start"
             }}
         >
-            <RedirectInfo text={"You have 3/9 online friends"} additionalStyles={{ fontSize: "large" }} />
+            <RedirectInfo text={"You have 3/9 online friends"} additionalStyles={{ fontSize: "large", color: props.theme.textColor1}} />
         </Box>
     );
 };
 
+DashboardChatHeaderSpace.propTypes = {
+    theme: PropTypes.object.isRequired
+};
 export default DashboardChatHeaderSpace;

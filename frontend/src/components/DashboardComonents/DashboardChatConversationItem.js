@@ -3,7 +3,7 @@ import Box from "@mui/material/Box";
 import Avatar from "@mui/material/Avatar";
 import PropTypes from "prop-types";
 import { Typography } from "@mui/material";
-import { styled } from "@mui/system";
+import { WrapperLeft, WrapperRight } from "../shared/Wrappers";
 
 const MsgTime = (props) => {
     return (
@@ -38,22 +38,6 @@ const UserText = (props) => {
         </Typography>
     );
 };
-const WrapperRight = styled("div")({
-    display: "flex",
-    flexDirection: "row-reverse",
-    flexWrap: "nowrap",
-    justifyContent: "flex-start",
-    alignItems: "center",
-    width: "100%"
-});
-const WrapperLeft = styled("div")({
-    display: "flex",
-    flexDirection: "row",
-    flexWrap: "nowrap",
-    justifyContent: "flex-start",
-    alignItems: "center",
-    width: "100%"
-});
 const DashboardChatConversationItem = (props) => {
     return (
         <Box
@@ -63,8 +47,6 @@ const DashboardChatConversationItem = (props) => {
                 flexDirection: "column",
                 justifyContent: "flex-start",
                 width: "100%",
-                backgroundColor: "#1e272e",
-                color: "white",
                 height: "auto"
             }}
         >

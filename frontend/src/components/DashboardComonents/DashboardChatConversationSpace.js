@@ -1,7 +1,8 @@
 import React from "react";
 import Box from "@mui/material/Box";
-import DashboardChatConversationItem from "./DashboardChatConversationItem";
 import { Stack } from "@mui/material";
+import PropTypes from "prop-types";
+import DashboardChatConversationItemSkeleton from "./DashboardChatConversationItemSkeleton";
 
 const DashboardChatConversationSpace = (props) => {
     return (
@@ -9,9 +10,8 @@ const DashboardChatConversationSpace = (props) => {
             sx={{
                 display: "flex",
                 overflowY: "scroll",
+                overflowX: "hidden",
                 width: "100%",
-                backgroundColor: "#1e272e",
-                color: "white",
                 alignContent: "center",
                 justifyContent: "flex-start",
                 alignItems: "center",
@@ -20,28 +20,39 @@ const DashboardChatConversationSpace = (props) => {
 
             }}
         >
-            <Stack direction="column" spacing={5}>
-                <DashboardChatConversationItem avatar={"64_2.png"} user={"Khaled Amrouche"} dateTime={"16/03/2022 20:57"} position={"left"}>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos blanditiis tenetur unde suscipit, quam beatae rerum inventore consectetur, neque doloribus, cupiditate numquam dignissimos laborum fugiat deleniti? Eum quasi quidem quibusdam.
-                </DashboardChatConversationItem>
-                <DashboardChatConversationItem avatar={"64_4.png"} user={"Amine Salah"} dateTime={"16/03/2022 20:58"} position={"right"}>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos blanditiis tenetur unde suscipit, quam beatae rerum inventore consectetur, neque doloribus, cupiditate numquam dignissimos laborum fugiat deleniti? Eum quasi quidem quibusdam.
-                </DashboardChatConversationItem>
-                <DashboardChatConversationItem avatar={"64_2.png"} user={"Khaled Amrouche"} dateTime={"16/03/2022 20:57"} position={"left"}>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos blanditiis tenetur unde suscipit, quam beatae rerum inventore consectetur, neque doloribus, cupiditate numquam dignissimos laborum fugiat deleniti? Eum quasi quidem quibusdam.
-                </DashboardChatConversationItem>
-                <DashboardChatConversationItem avatar={"64_2.png"} user={"Khaled Amrouche"} dateTime={"16/03/2022 20:57"} position={"left"}>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos blanditiis tenetur unde suscipit, quam beatae rerum inventore consectetur, neque doloribus, cupiditate numquam dignissimos laborum fugiat deleniti? Eum quasi quidem quibusdam.
-                </DashboardChatConversationItem>
-                <DashboardChatConversationItem avatar={"64_4.png"} user={"Amine Salah"} dateTime={"16/03/2022 20:58"} position={"right"}>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos blanditiis tenetur unde suscipit, quam beatae rerum inventore consectetur, neque doloribus, cupiditate numquam dignissimos laborum fugiat deleniti? Eum quasi quidem quibusdam.
-                </DashboardChatConversationItem>
-                <DashboardChatConversationItem avatar={"64_4.png"} user={"Amine Salah"} dateTime={"16/03/2022 20:58"} position={"right"}>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos blanditiis tenetur unde suscipit, quam beatae rerum inventore consectetur, neque doloribus, cupiditate numquam dignissimos laborum fugiat deleniti? Eum quasi quidem quibusdam.
-                </DashboardChatConversationItem>
+            <Stack direction="column" spacing={5} sx={{
+                width: "100%",
+                display: "flex",
+                padding: "20px",
+                margin: "20px"
+            }}>
+                {
+                    props.children
+                        ? (
+                            props.children
+                        )
+                        : (
+
+                            [...Array(4)].map((e, i) =>
+
+                                i % 2 === 0
+                                    ? (
+                                        <DashboardChatConversationItemSkeleton position={"left"}/>
+                                    )
+                                    : (
+                                        <DashboardChatConversationItemSkeleton position={"right"}/>
+                                    )
+                            )
+
+                        )
+                }
             </Stack>
         </Box>
     );
+};
+
+DashboardChatConversationSpace.propTypes = {
+    children: PropTypes.any
 };
 
 export default DashboardChatConversationSpace;

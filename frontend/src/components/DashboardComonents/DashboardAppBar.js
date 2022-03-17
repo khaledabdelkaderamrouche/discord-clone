@@ -8,8 +8,14 @@ import FormGroup from "@mui/material/FormGroup";
 import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
 import MaterialUISwitch from "./MaterialUiSwitch";
+import { useDispatch } from "react-redux";
+import { enableDarkMode, enableLightMode } from "../../features/themeSlice";
+import PropTypes from "prop-types";
+import DashboardRoomsBar from "./DashboardRoomsBar";
 
-const DashboardAppBar = () => {
+const DashboardAppBar = (theme) => {
+    const dispatch = useDispatch();
+
     const [anchorEl, setAnchorEl] = React.useState(null);
 
     const handleMenu = (event) => {
@@ -20,9 +26,13 @@ const DashboardAppBar = () => {
         setAnchorEl(null);
     };
 
+    const switchHandler = (event) => {
+        if (event.target.checked) { dispatch(enableDarkMode()); } else { dispatch(enableLightMode()); }
+    };
+
     return (
         <AppBar position="static" sx={{
-            backgroundColor: "#1e272e",
+            backgroundColor: theme.backgroundColor,
             borderBottom: "1px solid #485460",
             display: "flex",
             flexDirection: "row-reverse"
@@ -33,11 +43,19 @@ const DashboardAppBar = () => {
                     flexDirection: "row"
                 }}>
                     <FormControlLabel
-                        control={<MaterialUISwitch defaultChecked />}
+                        sx={{
+                            color: theme.textColor1
+                        }}
+                        control={<MaterialUISwitch value={ true } />}
                         label="Dark Mode"
+                        checked={theme.darkMode}
+                        onChange={switchHandler}
                     />
 
                     <IconButton
+                        sx={{
+                            color: theme.textColor1
+                        }}
                         size="large"
                         aria-label="account of current user"
                         aria-controls="menu-appbar"
@@ -70,5 +88,7 @@ const DashboardAppBar = () => {
         </AppBar>
     );
 };
-
+DashboardRoomsBar.propTypes = {
+    theme: PropTypes.object.isRequired
+};
 export default DashboardAppBar;

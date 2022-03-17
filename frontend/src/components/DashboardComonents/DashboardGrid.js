@@ -7,12 +7,20 @@ import DashboardRoom from "./DashboardRoom";
 import DashboardFriendsBar from "./DashboardFriendsBar";
 import DashboardFriend from "./DashboardFriend";
 import DashboardChatSpace from "./DashboardChatSpace";
+import { useSelector } from "react-redux";
 
 const DashboardGrid = () => {
+    const theme = useSelector((state) => state.theme.value);
     return (
-        <Grid container sx={{ height: "100%" }}>
-            <Grid item={true} md={1} sx={{ overflowY: "scroll" }}>
-                <DashboardRoomsBar numberOfRooms={5}>
+        <Grid container sx={{
+            height: "100%",
+            backgroundColor: theme.backgroundColor,
+            color: theme.textColor1
+        }}>
+            <Grid item={true} md={1} sx={{
+                overflowY: "scroll"
+            }}>
+                <DashboardRoomsBar numberOfRooms={5} theme={theme}>
                     <DashboardRoom user="Khaled Amrouche"/>
                     <DashboardRoom user="Lhmed Dmine"/>
                     <DashboardRoom user="Khalil Amar"/>
@@ -24,8 +32,10 @@ const DashboardGrid = () => {
                     <DashboardRoom user="Samara Big Boss"/>
                 </DashboardRoomsBar>
             </Grid>
-            <Grid item={true} md={2} sx={{ overflowY: "scroll" }}>
-                <DashboardFriendsBar numberOfFriends={10}>
+            <Grid item={true} md={2} sx={{
+                overflowY: "scroll"
+            }}>
+                <DashboardFriendsBar numberOfFriends={10} theme={theme}>
                     <DashboardFriend avatar={"64_1.png"} user={"Amine Nahdi"}/>
                     <DashboardFriend avatar={"64_2.png"} user="Khaled Amrouche"/>
                     <DashboardFriend avatar={"64_3.png"} user="Lhmed Dmine"/>
@@ -38,9 +48,9 @@ const DashboardGrid = () => {
                     <DashboardFriend avatar={"64_10.png"} user="Samara Big Boss"/>
                 </DashboardFriendsBar>
             </Grid>
-            <Grid item={true} md={8} >
-                <DashboardAppBar/>
-                <DashboardChatSpace />
+            <Grid item={true} md={9}>
+                <DashboardAppBar {...theme}/>
+                <DashboardChatSpace theme={theme} />
             </Grid>
 
         </Grid>
