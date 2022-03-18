@@ -12,6 +12,7 @@ import { useDispatch } from "react-redux";
 import { enableDarkMode, enableLightMode } from "../../features/themeSlice";
 import PropTypes from "prop-types";
 import DashboardRoomsBar from "./DashboardRoomsBar";
+import { logout } from "../../features/authSlice";
 
 const DashboardAppBar = (theme) => {
     const dispatch = useDispatch();
@@ -29,8 +30,11 @@ const DashboardAppBar = (theme) => {
     const switchHandler = (event) => {
         if (event.target.checked) { dispatch(enableDarkMode()); } else { dispatch(enableLightMode()); }
     };
-
+    const handleLogout = () => {
+        dispatch(logout());
+    };
     return (
+
         <AppBar position="static" sx={{
             backgroundColor: theme.backgroundColor,
             borderBottom: "1px solid #485460",
@@ -88,7 +92,7 @@ const DashboardAppBar = (theme) => {
                     onClose={handleClose}
                 >
                     <MenuItem onClick={handleClose}>Profile</MenuItem>
-                    <MenuItem onClick={handleClose}>Logout</MenuItem>
+                    <MenuItem onClick={handleLogout}>Logout</MenuItem>
                 </Menu>
             </Toolbar>
         </AppBar>
