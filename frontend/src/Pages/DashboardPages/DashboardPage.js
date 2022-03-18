@@ -8,13 +8,17 @@ import DashboardAppBar from "../../components/DashboardComonents/DashboardAppBar
 import DashboardChatSpace from "../../components/DashboardComonents/DashboardChatSpace";
 import DashboardFriend from "../../components/DashboardComonents/DashboardFriend";
 import { logout } from "../../features/authSlice";
+import { connectToServer } from "../../Socket.io/socketClient";
 
 const DashboardPage = () => {
     const theme = useSelector((state) => state.theme.value);
     const dispatch = useDispatch();
     useEffect(() => {
         const user = localStorage.getItem("userDetails");
-        if (!user) { dispatch(logout()); }
+        if (!user) { dispatch(logout()); } else {
+            // TODO CHECK IF WE NEED TO SAVE LOCAL STORAGE
+            connectToServer(user);
+        }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
