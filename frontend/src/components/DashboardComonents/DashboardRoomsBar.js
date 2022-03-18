@@ -11,6 +11,8 @@ const onClick = () => {
 };
 
 const DashboardRoomsBar = (props) => {
+    const color = props.theme.textColor1;
+    const backgroundColor = props.theme.backgroundColor;
     return (
         <Box
             sx={{
@@ -21,7 +23,7 @@ const DashboardRoomsBar = (props) => {
                 borderRight: "1px solid #485460",
                 padding: "25px",
                 paddingBottom: "50px",
-                color: props.theme.textColor1
+                color: color
             }}
         >
             <DuoIcon sx={{
@@ -29,13 +31,13 @@ const DashboardRoomsBar = (props) => {
                 marginBottom: "5px",
                 padding: "15px"
             }}/>
-            <CustomDivider/>
+            <CustomDivider color={color}/>
             <CustomAddButton disabled={false} onClick={onClick} additionalStyles={{
-                color: props.theme.textColor1,
-                backgroundColor: props.theme.textColor1,
-                border: "1px solid " + props.theme.textColor1,
+                border: "1px solid " + backgroundColor,
+                color: color,
                 "&:hover": {
-                    boxShadow: "0px 2px 5px 3px rgba(255,255,255,1)"
+                    backgroundColor: backgroundColor,
+                    border: "1px solid " + color
                 }
             }}/>
             <Stack direction="column" spacing={2}>

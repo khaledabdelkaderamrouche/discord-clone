@@ -7,10 +7,13 @@ import CustomDivider from "../shared/CustomDivider";
 import RedirectInfo from "../shared/RedirectInfo";
 import { WrapperFriends } from "../shared/Wrappers";
 import CustomPrimaryButton from "../shared/CustomPrimaryButton";
+import DashboardFriendModal from "./DashboardFriendModal";
 
 const DashboardFriendsBar = (props) => {
-    const onCLick = () => {
-    };
+    const color = props.theme.textColor1;
+    const [open, setOpen] = React.useState(false);
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
     return (
         <Box
             sx={{
@@ -25,13 +28,13 @@ const DashboardFriendsBar = (props) => {
         >
             <CustomPrimaryButton
                 label={"Add new friend"}
-                additionalStyles={{ backgroundColor: "transparent", color: props.theme.textColor1 }}
+                additionalStyles={{ backgroundColor: "transparent", color: color }}
                 disabled={false}
-                onClick={onCLick}
+                onClick={handleOpen}
             />
-            <RedirectInfo text={"You have 3/9 online friends"} additionalStyles={{ height: "0.6em", padding: "10px", color: props.theme.textColor1 }} />
+            <RedirectInfo text={"You have 3/9 online friends"} additionalStyles={{ height: "0.6em", padding: "10px", color: color }} />
 
-            <CustomDivider/>
+            <CustomDivider color={color}/>
 
             <Stack direction="column" spacing={2}>
 
@@ -51,6 +54,7 @@ const DashboardFriendsBar = (props) => {
                         )
                 }
             </Stack>
+            <DashboardFriendModal handleClose={handleClose} open={open} />
         </Box>
     );
 };

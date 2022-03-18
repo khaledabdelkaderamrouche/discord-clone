@@ -5,10 +5,10 @@ import PropTypes from "prop-types";
 import { Typography } from "@mui/material";
 import { WrapperLeft, WrapperRight } from "../shared/Wrappers";
 
-const MsgTime = (props) => {
+const MsgTime = (props, color) => {
     return (
         <Typography
-            sx={{ color: "#808e9b", textAlign: "left", fontSize: "x-small", fontStyle: "italic" }}
+            sx={{ color: color, textAlign: "left", fontSize: "x-small", fontStyle: "italic" }}
             style={props.additionalStyles || {}}
             variant="caption"
         >
@@ -16,10 +16,10 @@ const MsgTime = (props) => {
         </Typography>
     );
 };
-const UserName = (props) => {
+const UserName = (props, color) => {
     return (
         <Typography
-            sx={{ color: "#d2dae2", margin: "15px", textAlign: "left" }}
+            sx={{ color: color, margin: "15px", textAlign: "left" }}
             style={props.additionalStyles || {}}
             variant="subtitle2"
         >
@@ -27,10 +27,10 @@ const UserName = (props) => {
         </Typography>
     );
 };
-const UserText = (props) => {
+const UserText = (props, color) => {
     return (
         <Typography
-            sx={{ color: "#d2dae2", margin: "15px", textAlign: "left" }}
+            sx={{ color: color, margin: "15px", textAlign: "left" }}
             style={props.additionalStyles || {}}
             variant="subtitle2"
         >
@@ -39,6 +39,8 @@ const UserText = (props) => {
     );
 };
 const DashboardChatConversationItem = (props) => {
+    const color1 = props.theme.textColor1;
+    const color2 = props.theme.textColor2;
     return (
         <Box
             sx={{
@@ -56,20 +58,20 @@ const DashboardChatConversationItem = (props) => {
                         <>
                             <WrapperRight>
                                 <Avatar src={require(`../../assets/avatars//${props.avatar}`)} sx={{ margin: "5px" }}/>
-                                <UserName>{props.user}</UserName>
-                                <MsgTime>{props.dateTime}</MsgTime>
+                                <UserName color1={color1}>{props.user}</UserName>
+                                <MsgTime color={color2}>{props.dateTime}</MsgTime>
                             </WrapperRight>
-                            <UserText>{props.children}</UserText>
+                            <UserText color1={color1}>{props.children}</UserText>
                         </>
                     )
                     : (
                         <>
                             <WrapperLeft>
                                 <Avatar src={require(`../../assets/avatars//${props.avatar}`)} sx={{ margin: "5px" }}/>
-                                <UserName>{props.user}</UserName>
-                                <MsgTime>{props.dateTime}</MsgTime>
+                                <UserName color1={color1}>{props.user}</UserName>
+                                <MsgTime color={color2}>{props.dateTime}</MsgTime>
                             </WrapperLeft>
-                            <UserText>{props.children}</UserText>
+                            <UserText color1={color1}>{props.children}</UserText>
                         </>
                     )
             }
@@ -78,6 +80,7 @@ const DashboardChatConversationItem = (props) => {
 };
 DashboardChatConversationItem.propTypes = {
     avatar: PropTypes.string.isRequired,
+    theme: PropTypes.object.isRequired,
     user: PropTypes.string.isRequired,
     dateTime: PropTypes.string.isRequired,
     position: PropTypes.oneOf(["left", "right"]).isRequired,

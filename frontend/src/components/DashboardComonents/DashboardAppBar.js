@@ -78,6 +78,12 @@ const DashboardAppBar = (theme) => {
                         vertical: "top",
                         horizontal: "right"
                     }}
+                    sx={{
+                        "& .MuiPaper-root": {
+                            backgroundColor: theme.backgroundColor,
+                            color: theme.textColor1
+                        }
+                    }}
                     open={Boolean(anchorEl)}
                     onClose={handleClose}
                 >

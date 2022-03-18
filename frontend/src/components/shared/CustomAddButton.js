@@ -7,21 +7,12 @@ const CustomAddButton = ({ additionalStyles, disabled, onClick }) => {
     return (
 
         <IconButton aria-label="Add Room"
-            style={additionalStyles || {}}
             disabled={disabled}
             onClick={onClick}
-            sx={{
-                border: "1px solid #1e272e",
-                marginBottom: "15px",
-                "&:hover": {
-                    backgroundColor: "#1e272e",
-                    border: "1px solid white"
-                }
-            }}>
-            <AddCircleIcon sx={{
-                fontSize: "60px",
-                color: "white"
-            }}/>
+            sx={{ marginBottom: "15px", ...additionalStyles }}>
+            <AddCircleIcon
+                style={additionalStyles || {}}
+                sx={{ fontSize: "60px" }}/>
         </IconButton>
     );
 };
