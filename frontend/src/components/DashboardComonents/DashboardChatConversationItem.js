@@ -57,7 +57,7 @@ const DashboardChatConversationItem = (props) => {
                     ? (
                         <>
                             <WrapperRight>
-                                <Avatar src={require(`../../assets/avatars//${props.avatar}`)} sx={{ margin: "5px" }}/>
+                                <Avatar src={require(`../../assets/avatars/${props.avatar}`)} sx={{ margin: "5px" }}/>
                                 <UserName color1={color1}>{props.user}</UserName>
                                 <MsgTime color={color2}>{props.dateTime}</MsgTime>
                             </WrapperRight>
@@ -67,7 +67,7 @@ const DashboardChatConversationItem = (props) => {
                     : (
                         <>
                             <WrapperLeft>
-                                <Avatar src={require(`../../assets/avatars//${props.avatar}`)} sx={{ margin: "5px" }}/>
+                                <Avatar src={require(`../../assets/avatars/${props.avatar}`)} sx={{ margin: "5px" }}/>
                                 <UserName color1={color1}>{props.user}</UserName>
                                 <MsgTime color={color2}>{props.dateTime}</MsgTime>
                             </WrapperLeft>

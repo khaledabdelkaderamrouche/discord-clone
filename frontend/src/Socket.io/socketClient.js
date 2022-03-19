@@ -4,7 +4,7 @@ import env from "react-dotenv";
 let socket = null;
 
 export const connectToServer = (user) => {
-    const {userDetails} = user;
+    const { userDetails } = user;
     socket = io(env.BACKEND_URL, {
         auth: {
             token: userDetails.token

@@ -4,11 +4,13 @@ import thunk from "redux-thunk";
 import authReducer from "../features/authSlice";
 import alertReducer from "../features/alertSlice";
 import themeReducer from "../features/themeSlice";
+import friendsSlice from "../features/friendsSlice";
 
 const rootReducer = combineReducers({
     auth: authReducer,
     alert: alertReducer,
-    theme: themeReducer
+    theme: themeReducer,
+    friends: friendsSlice
 });
 
 const store = createStore(

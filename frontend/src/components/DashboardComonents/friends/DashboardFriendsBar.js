@@ -3,10 +3,10 @@ import Box from "@mui/material/Box";
 import { Skeleton, Stack } from "@mui/material";
 import PropTypes from "prop-types";
 
-import CustomDivider from "../shared/CustomDivider";
-import RedirectInfo from "../shared/RedirectInfo";
-import { WrapperFriends } from "../shared/Wrappers";
-import CustomPrimaryButton from "../shared/CustomPrimaryButton";
+import CustomDivider from "../../shared/CustomDivider";
+import RedirectInfo from "../../shared/RedirectInfo";
+import { WrapperFriends } from "../../shared/Wrappers";
+import CustomPrimaryButton from "../../shared/CustomPrimaryButton";
 import DashboardFriendModal from "./DashboardFriendModal";
 
 const DashboardFriendsBar = (props) => {

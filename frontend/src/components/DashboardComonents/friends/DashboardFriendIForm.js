@@ -1,5 +1,5 @@
 import React from "react";
-import InputWithLabel from "../shared/InputWithLabel";
+import InputWithLabel from "../../shared/InputWithLabel";
 import PropTypes from "prop-types";
 
 const DashboardFriendIForm = ({ mail, setMail }) => {

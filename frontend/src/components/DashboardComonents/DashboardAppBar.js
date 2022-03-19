@@ -1,31 +1,19 @@
 import React from "react";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
-import IconButton from "@mui/material/IconButton";
-import AccountCircle from "@mui/icons-material/AccountCircle";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormGroup from "@mui/material/FormGroup";
-import MenuItem from "@mui/material/MenuItem";
-import Menu from "@mui/material/Menu";
 import MaterialUISwitch from "./MaterialUiSwitch";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { enableDarkMode, enableLightMode } from "../../features/themeSlice";
 import PropTypes from "prop-types";
 import DashboardRoomsBar from "./DashboardRoomsBar";
 import { logout } from "../../features/authSlice";
+import FriendsBadge from "./friends/FriendsBadge";
+import ProfileIcon from "./ProfileIcon";
 
 const DashboardAppBar = (theme) => {
     const dispatch = useDispatch();
-
-    const [anchorEl, setAnchorEl] = React.useState(null);
-
-    const handleMenu = (event) => {
-        setAnchorEl(event.currentTarget);
-    };
-
-    const handleClose = () => {
-        setAnchorEl(null);
-    };
 
     const switchHandler = (event) => {
         if (event.target.checked) { dispatch(enableDarkMode()); } else { dispatch(enableLightMode()); }
@@ -33,6 +21,8 @@ const DashboardAppBar = (theme) => {
     const handleLogout = () => {
         dispatch(logout());
     };
+    const friends = useSelector((state) => state.friends.value);
+    console.log(friends.pendingInvitations.length);
     return (
 
         <AppBar position="static" sx={{
@@ -55,45 +45,26 @@ const DashboardAppBar = (theme) => {
                         checked={theme.darkMode}
                         onChange={switchHandler}
                     />
-
-                    <IconButton
-                        sx={{
-                            color: theme.textColor1
-                        }}
-                        size="large"
-                        aria-label="account of current user"
-                        aria-controls="menu-appbar"
-                        aria-haspopup="true"
-                        onClick={handleMenu}
-                        color="inherit"
-                    >
-                        <AccountCircle />
-                    </IconButton>
-                </FormGroup>
-                <Menu
-                    id="menu-appbar"
-                    anchorEl={anchorEl}
-                    anchorOrigin={{
-                        vertical: "top",
-                        horizontal: "right"
-                    }}
-                    keepMounted
-                    transformOrigin={{
-                        vertical: "top",
-                        horizontal: "right"
-                    }}
-                    sx={{
-                        "& .MuiPaper-root": {
-                            backgroundColor: theme.backgroundColor,
-                            color: theme.textColor1
+                    <FriendsBadge theme={theme} color={theme.textColor1} content={friends.pendingInvitations.length} max={99} invisible={friends.pendingInvitations.length <= 0} handleAccept={handleLogout} handleReject={handleLogout} invitations={[
+                        {
+                            username: "Khaled Amrouche",
+                            avatar: "64_8.png"
+                        },
+                        {
+                            username: "Khaled Amrouche",
+                            avatar: "64_8.png"
+                        },
+                        {
+                            username: "Khaled",
+                            avatar: "64_8.png"
+                        },
+                        {
+                            username: "Khaled Adekader Amrouche",
+                            avatar: "64_8.png"
                         }
-                    }}
-                    open={Boolean(anchorEl)}
-                    onClose={handleClose}
-                >
-                    <MenuItem onClick={handleClose}>Profile</MenuItem>
-                    <MenuItem onClick={handleLogout}>Logout</MenuItem>
-                </Menu>
+                    ]}/>
+                    <ProfileIcon theme={theme} handleLogout={handleLogout}/>
+                </FormGroup>
             </Toolbar>
         </AppBar>
     );

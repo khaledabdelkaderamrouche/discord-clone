@@ -3,10 +3,10 @@ import PropTypes from "prop-types";
 import { Grid } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import DashboardRoomsBar from "../../components/DashboardComonents/DashboardRoomsBar";
-import DashboardFriendsBar from "../../components/DashboardComonents/DashboardFriendsBar";
+import DashboardFriendsBar from "../../components/DashboardComonents/friends/DashboardFriendsBar";
 import DashboardAppBar from "../../components/DashboardComonents/DashboardAppBar";
 import DashboardChatSpace from "../../components/DashboardComonents/DashboardChatSpace";
-import DashboardFriend from "../../components/DashboardComonents/DashboardFriend";
+import DashboardFriend from "../../components/DashboardComonents/friends/DashboardFriend";
 import { logout } from "../../features/authSlice";
 import { connectToServer } from "../../Socket.io/socketClient";
 
