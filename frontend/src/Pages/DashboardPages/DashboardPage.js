@@ -17,7 +17,7 @@ const DashboardPage = () => {
         const user = localStorage.getItem("userDetails");
         if (!user) { dispatch(logout()); } else {
             // TODO CHECK IF WE NEED TO SAVE LOCAL STORAGE
-            connectToServer(user);
+            connectToServer(JSON.parse(user));
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
