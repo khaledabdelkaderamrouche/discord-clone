@@ -2,6 +2,7 @@ import { styled } from "@mui/system";
 
 export const WrapperFriends = styled("div")({
     display: "flex",
+    width: "100%",
     flexDirection: "row",
     flexWrap: "nowrap",
     alignContent: "center",

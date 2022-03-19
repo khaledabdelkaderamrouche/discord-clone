@@ -9,9 +9,13 @@ import DashboardChatSpace from "../../components/DashboardComonents/DashboardCha
 import DashboardFriend from "../../components/DashboardComonents/friends/DashboardFriend";
 import { logout } from "../../features/authSlice";
 import { connectToServer } from "../../Socket.io/socketClient";
+import List from "@mui/material/List";
 
 const DashboardPage = () => {
     const theme = useSelector((state) => state.theme.value);
+    const friends = useSelector((state) => state.friends.value);
+    const userFriends = friends.friends;
+    const userPendingInvitations = friends.pendingInvitations;
     const dispatch = useDispatch();
     useEffect(() => {
         const user = localStorage.getItem("userDetails");
@@ -21,8 +25,8 @@ const DashboardPage = () => {
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
-
     return (
+
         <Grid container sx={{
             height: "100%",
             backgroundColor: theme.backgroundColor,
@@ -46,22 +50,30 @@ const DashboardPage = () => {
             <Grid item={true} md={2} sx={{
                 overflowY: "scroll"
             }}>
-                <DashboardFriendsBar numberOfFriends={9} theme={theme}>
-                    <DashboardFriend avatar={"64_1.png"} user="Amine Nahdi" online={false} />
-                    <DashboardFriend avatar={"64_2.png"} user="Khaled Amrouche" online={true} />
-                    <DashboardFriend avatar={"64_3.png"} user="Lhmed Dmine" online={false} />
-                    <DashboardFriend avatar={"64_4.png"} user="Khalil Amar" online={true} />
-                    <DashboardFriend avatar={"64_5.png"} user="Abdelkader Khaled Amrouche" online={false} />
-                    <DashboardFriend avatar={"64_6.png"} user="Eminem Ben Achour" online={false} />
-                    <DashboardFriend avatar={"64_7.png"} user="Ben Achour" online={true} />
-                    <DashboardFriend avatar={"64_8.png"} user="Achour Ali" online={false} />
-                    <DashboardFriend avatar={"64_9.png"} user="Mohamed Amine Asma" online={false} />
-                    <DashboardFriend avatar={"64_10.png"} user="Samara Big Boss" online={false} />
+                <DashboardFriendsBar
+                    numberOfFriends={userFriends.length}
+                    numberOfOnlineFriends={userFriends.filter(friend => friend.online).length}
+                    theme={theme}>
+                    {userFriends.length > 0 && userFriends.map((friend, key) => {
+                        return (
+                            <DashboardFriend
+                                key={key}
+                                avatar={friend.avatar}
+                                user={friend.username}
+                                online={friend.online}
+                            />
+                        );
+                    })}
                 </DashboardFriendsBar>
             </Grid>
             <Grid item={true} md={9}>
-                <DashboardAppBar {...theme}/>
-                <DashboardChatSpace theme={theme} />
+                <DashboardAppBar
+                    theme={theme}
+                    userPendingInvitations={userPendingInvitations}
+                />
+                <DashboardChatSpace
+                    theme={theme}
+                />
             </Grid>
 
         </Grid>

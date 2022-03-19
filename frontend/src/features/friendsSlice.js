@@ -4,7 +4,8 @@ import { displayAlert } from "./alertSlice";
 import { handleResponse } from "../utils/ErrorHandler";
 
 const initialState = {
-    friends: [],
+    friends: [
+    ],
     pendingInvitations: [
         {
             username: "Khaled Amrouche",
@@ -77,7 +78,6 @@ export const register = (data) => async dispatch => {
     try {
         const response = await api.register(data);
         if (response.error) {
-            console.log(response);
             const options = { ...handleResponse(response), ...{ filled: true } };
             dispatch(displayAlert({
                 open: true,

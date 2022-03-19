@@ -32,7 +32,7 @@ const DashboardFriendsBar = (props) => {
                 disabled={false}
                 onClick={handleOpen}
             />
-            <RedirectInfo text={"You have 3/9 online friends"} additionalStyles={{ height: "0.6em", padding: "10px", color: color }} />
+            <RedirectInfo text={`You have ${props.numberOfOnlineFriends}/${props.numberOfFriends} online friends`} additionalStyles={{ height: "0.6em", padding: "10px", color: color }} />
 
             <CustomDivider color={color}/>
 
@@ -62,6 +62,7 @@ const DashboardFriendsBar = (props) => {
 DashboardFriendsBar.propTypes = {
     children: PropTypes.any,
     numberOfFriends: PropTypes.number.isRequired,
+    numberOfOnlineFriends: PropTypes.number.isRequired,
     theme: PropTypes.object.isRequired
 };
 export default DashboardFriendsBar;

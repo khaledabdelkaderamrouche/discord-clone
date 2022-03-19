@@ -12,6 +12,7 @@ import Avatar from "@mui/material/Avatar";
 import IconButton from "@mui/material/IconButton";
 import CheckIcon from "@mui/icons-material/Check";
 import CloseIcon from "@mui/icons-material/Close";
+import RedirectInfo from "../../shared/RedirectInfo";
 
 const InvitationsContainer = (props) => {
     const { handleAccept, handleReject, anchorEl, theme, handleClose, invitations } = props;
@@ -38,7 +39,7 @@ const InvitationsContainer = (props) => {
             onClose={handleClose}
         >
             <List dense={false}>
-                {invitations.map((invitation, key) => {
+                {invitations.length > 0 && invitations.map((invitation, key) => {
                     return (
                         <ListItem key={key} sx={{ color: theme.textColor }}>
                             <ListItemAvatar>
@@ -54,6 +55,9 @@ const InvitationsContainer = (props) => {
                         </ListItem>
                     );
                 })}
+                {
+                    <RedirectInfo text={"No invitation found"} additionalStyles={{ padding: "10px", color: theme.textColor }} />
+                }
 
             </List>
         </Menu>

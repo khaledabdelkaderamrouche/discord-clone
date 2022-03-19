@@ -17,7 +17,7 @@ const RedirectInfo = ({
 }) => {
     return (
         <Typography
-            sx={{ color: "#fff", margin: "15px", textAlign: "left" }}
+            sx={{ margin: "15px", textAlign: "left" }}
             style={additionalStyles || {}}
             variant="subtitle2"
         >
