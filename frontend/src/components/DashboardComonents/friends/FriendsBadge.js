@@ -54,9 +54,8 @@ const InvitationsContainer = (props) => {
                             </IconButton>
                         </ListItem>
                     );
-                })}
-                {
-                    <RedirectInfo text={"No invitation found"} additionalStyles={{ padding: "10px", color: theme.textColor }} />
+                })}{
+                    invitations.length <= 0 && <RedirectInfo text={"No invitation found"} additionalStyles={{ padding: "10px", color: theme.textColor }} />
                 }
 
             </List>
@@ -126,7 +125,7 @@ InvitationsContainer.propTypes = {
     handleAccept: PropTypes.func.isRequired,
     handleReject: PropTypes.func.isRequired,
     theme: PropTypes.object.isRequired,
-    anchorEl: PropTypes.object.isRequired,
+    anchorEl: PropTypes.object,
     invitations: PropTypes.array.isRequired,
     handleClose: PropTypes.func.isRequired
 };

@@ -9,20 +9,30 @@ import DashboardChatSpace from "../../components/DashboardComonents/DashboardCha
 import DashboardFriend from "../../components/DashboardComonents/friends/DashboardFriend";
 import { logout } from "../../features/authSlice";
 import { connectToServer } from "../../Socket.io/socketClient";
-import List from "@mui/material/List";
+import { getFriends, getPendingInvitations } from "../../features/friendsSlice";
 
 const DashboardPage = () => {
     const theme = useSelector((state) => state.theme.value);
     const friends = useSelector((state) => state.friends.value);
     const userFriends = friends.friends;
     const userPendingInvitations = friends.pendingInvitations;
+    const user = JSON.parse(localStorage.getItem("userDetails"));
     const dispatch = useDispatch();
+
     useEffect(() => {
-        const user = localStorage.getItem("userDetails");
         if (!user) { dispatch(logout()); } else {
             // TODO CHECK IF WE NEED TO SAVE LOCAL STORAGE
-            connectToServer(JSON.parse(user));
+            connectToServer(user);
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+    useEffect(() => {
+        /*  dispatch(getFriends({
+            user: user.userDetails.mail
+        })); */
+        dispatch(getPendingInvitations({
+            userMail: user.userDetails.mail
+        }));
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
     return (

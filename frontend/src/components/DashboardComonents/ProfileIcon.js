@@ -74,7 +74,7 @@ ProfileIcon.propTypes = {
 };
 MenuContainer.propTypes = {
     theme: PropTypes.object.isRequired,
-    anchorEl: PropTypes.object.isRequired,
+    anchorEl: PropTypes.object,
     handleLogout: PropTypes.func.isRequired,
     handleClose: PropTypes.func.isRequired
 };

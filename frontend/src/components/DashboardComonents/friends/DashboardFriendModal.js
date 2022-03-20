@@ -6,24 +6,45 @@ import AlertNotification from "../../shared/AlertNotification";
 import DashboardFriendIForm from "./DashboardFriendIForm";
 import { validateMail } from "../../../utils/Validators";
 import CustomPrimaryButton from "../../shared/CustomPrimaryButton";
+import { useDispatch } from "react-redux";
+import { sendInvitation } from "../../../features/friendsSlice";
 
 const DashboardFriendModal = (props) => {
     const [mail, setMail] = useState("");
     const [isFormValid, setIsFormValid] = useState(false);
+    const dispatch = useDispatch();
+
     const getFormValidationMessage = (valid) => {
         if (valid) { return "Press to invite friend !"; } else { return "Please enter a valid email address."; }
     };
     const handleInvite = () => {
+        const user = JSON.parse(localStorage.getItem("userDetails"));
+        const senderMail = user.userDetails.mail;
+        const receiverMail = mail;
 
+        const invitationSent = dispatch(sendInvitation({
+            senderMail,
+            receiverMail
+        }));
+        invitationSent.then((result) => {
+            if (result) {
+                setMail("");
+                props.setOpen(false);
+            }
+        });
     };
     useEffect(() => {
         setIsFormValid(validateMail(mail));
     }, [mail]);
+    // TODO THINK OF THIS
+    /* useEffect(() => {
+        setOpen(true);
+    }, []); */
     return (
         <>
             <AlertNotification/>
             <Modal
-                open={props.open}
+                open={ props.open && open}
                 onClose={props.handleClose}
                 aria-labelledby="modal-modal-title"
                 aria-describedby="modal-modal-description"
@@ -65,6 +86,7 @@ const DashboardFriendModal = (props) => {
 
 DashboardFriendModal.propTypes = {
     open: PropTypes.bool.isRequired,
+    setOpen: PropTypes.func.isRequired,
     handleClose: PropTypes.func.isRequired
 };
 export default DashboardFriendModal;

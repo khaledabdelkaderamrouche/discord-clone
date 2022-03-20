@@ -14,6 +14,7 @@ const DashboardFriendsBar = (props) => {
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
+
     return (
         <Box
             sx={{
@@ -54,7 +55,7 @@ const DashboardFriendsBar = (props) => {
                         )
                 }
             </Stack>
-            <DashboardFriendModal handleClose={handleClose} open={open} />
+            <DashboardFriendModal handleClose={handleClose} open={open} setOpen={setOpen} />
         </Box>
     );
 };

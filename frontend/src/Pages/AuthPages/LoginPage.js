@@ -33,7 +33,6 @@ const LoginPage = () => {
     };
     return (
         <>
-            <AlertNotification/>
             <AuthBox>
                 <AuthHeader
                     header={"Welcome Back!"}

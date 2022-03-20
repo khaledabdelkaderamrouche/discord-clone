@@ -44,7 +44,51 @@ export const register = async (data) => {
 };
 
 // SECURE ROUTES
-
+export const handleInvitationResponse = async (data) => {
+    try {
+        return await apiClient.post("/api/v1/friends/invitations", data);
+    } catch (e) {
+        checkResponseCode(e);
+        return {
+            error: true,
+            message: e
+        };
+    }
+};
+export const getFriends = async (data) => {
+    try {
+        return await apiClient.get("/api/v1/friends/", { params: data });
+    } catch (e) {
+        checkResponseCode(e);
+        return {
+            error: true,
+            message: e
+        };
+    }
+};
+export const sendInvitation = async (data) => {
+    try {
+        return await apiClient.post("/api/v1/friends/invitations", data);
+    } catch (e) {
+        checkResponseCode(e);
+        return {
+            error: true,
+            message: e
+        };
+    }
+};
+export const getPendingInvitations = async (data) => {
+    console.log(data);
+    try {
+        return await apiClient.get("/api/v1/friends/invitations", { params: data });
+    } catch (e) {
+        checkResponseCode(e);
+        return {
+            error: true,
+            message: e
+        };
+    }
+};
 const checkResponseCode = (exception) => {
     const responseCode = exception?.response?.status;
 

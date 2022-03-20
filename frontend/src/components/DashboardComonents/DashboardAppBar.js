@@ -50,7 +50,7 @@ const DashboardAppBar = (props) => {
                         invisible={props.userPendingInvitations.length <= 0}
                         handleAccept={handleLogout}
                         handleReject={handleLogout}
-                        invitations={[]}
+                        invitations={props.userPendingInvitations}
                     />
                     <ProfileIcon theme={props.theme} handleLogout={handleLogout}/>
                 </FormGroup>
@@ -60,6 +60,6 @@ const DashboardAppBar = (props) => {
 };
 DashboardAppBar.propTypes = {
     theme: PropTypes.object.isRequired,
-    userPendingInvitations: PropTypes.object.isRequired
+    userPendingInvitations: PropTypes.array.isRequired
 };
 export default DashboardAppBar;
