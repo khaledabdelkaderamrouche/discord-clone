@@ -16,40 +16,29 @@ export const friendsSlice = createSlice({
     initialState: { value: initialState },
     reducers: {
         getFriendsSuccess: (state, action) => {
-            state.value = action.payload;
+            state.value.friends = action.payload;
         },
         getPendingInvitationsSuccess: (state, action) => {
-            console.log(action.payload);
             state.value.pendingInvitations = action.payload;
         },
         sendInvitationSuccess: (state, action) => {
         },
-        logout: async (state, action) => {
-            state.value = null;
-            localStorage.removeItem("userDetails");
-            window.location.pathname = "/login";
-        },
-        registerSuccess: (state, action) => {
-            state.value = action.payload;
-            localStorage.setItem("userDetails", JSON.stringify(action.payload));
+        acceptInvitationSuccess: (state, action) => {
+            state.value.friends = action.payload.friends;
+            state.value.pendingInvitations = action.payload.invitations;
         }
 
     }
 });
-export const { getFriendsSuccess, sendInvitationSuccess, getPendingInvitationsSuccess } = friendsSlice.actions;
+export const { getFriendsSuccess, sendInvitationSuccess, getPendingInvitationsSuccess, acceptInvitationSuccess } = friendsSlice.actions;
 export default friendsSlice.reducer;
 
-export const getFriends = (data) => async (dispatch) => {
+export const getPendingInvitations = (data) => async (dispatch) => {
     try {
-        const response = await api.getFriends(data);
-        if (response.error) {
-            const options = { ...handleResponse(response), ...{ filled: true } };
-            dispatch(displayAlert({
-                open: true,
-                options: options
-            }));
-        } else {
-            dispatch(getFriendsSuccess(response.data));
+        const response = await api.getPendingInvitations(data);
+
+        if (!response.error) {
+            dispatch(getPendingInvitationsSuccess(response.data.invitations));
         }
     } catch (e) {
         dispatch(displayAlert({
@@ -63,13 +52,12 @@ export const getFriends = (data) => async (dispatch) => {
         return console.error(e.message);
     }
 };
-
-export const getPendingInvitations = (data) => async (dispatch) => {
+export const getFriends = (data) => async (dispatch) => {
     try {
-        const response = await api.getPendingInvitations(data);
+        const response = await api.getFriends(data);
 
         if (!response.error) {
-            dispatch(getPendingInvitationsSuccess(response.data.invitations));
+            dispatch(getFriendsSuccess(response.data.friends));
         }
     } catch (e) {
         dispatch(displayAlert({
@@ -92,6 +80,32 @@ export const sendInvitation = (data) => async dispatch => {
             options: options
         }));
         return true;
+    } catch (e) {
+        dispatch(displayAlert({
+            open: true,
+            options: {
+                text: e.message,
+                severity: "error",
+                filled: true
+            }
+        }));
+        return console.error(e.message);
+    }
+};
+export const acceptInvitation = (data) => async dispatch => {
+    try {
+        const response = await api.acceptInvitation(data);
+        if (response.error) {
+            const options = { ...handleResponse(response), ...{ filled: true } };
+            dispatch(displayAlert({
+                open: true,
+                options: options
+            }));
+        } else {
+            console.log(response.data);
+            console.log(response.data.friends);
+            dispatch(acceptInvitationSuccess(response.data));
+        }
     } catch (e) {
         dispatch(displayAlert({
             open: true,

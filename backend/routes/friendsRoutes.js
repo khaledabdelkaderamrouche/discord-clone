@@ -8,4 +8,10 @@ router.post('/invitations',
 router.get('/invitations',
     friendsControllers.controllers.getInvitations
 )
+router.get('/',
+    friendsControllers.controllers.getFriends
+)
+router.put('/invitations/accept',
+    friendsControllers.controllers.acceptInvitation
+)
 module.exports = router;

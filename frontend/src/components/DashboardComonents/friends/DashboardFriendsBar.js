@@ -45,7 +45,7 @@ const DashboardFriendsBar = (props) => {
                             props.children
                         )
                         : (
-                            [...Array(props.numberOfFriends)].map((e, i) =>
+                            [...Array(5)].map((e, i) =>
                                 <WrapperFriends key={`d${i}`} >
                                     <Skeleton key={`i${i}`} variant="circular" width={64} height={64} sx={{ margin: "5px", bgcolor: "rgba(72, 84, 96,0.5)" }}/>
                                     <Skeleton key={`t${i}`} variant="text" width={180} sx={{ bgcolor: "rgba(72, 84, 96,0.5)" }}/>

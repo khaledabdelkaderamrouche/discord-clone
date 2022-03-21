@@ -27,14 +27,15 @@ const DashboardPage = () => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
     useEffect(() => {
-        /*  dispatch(getFriends({
-            user: user.userDetails.mail
-        })); */
+        dispatch(getFriends({
+            userMail: user.userDetails.mail
+        }));
         dispatch(getPendingInvitations({
             userMail: user.userDetails.mail
         }));
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
+
     return (
 
         <Grid container sx={{

@@ -10,10 +10,17 @@ import PropTypes from "prop-types";
 import { logout } from "../../features/authSlice";
 import FriendsBadge from "./friends/FriendsBadge";
 import ProfileIcon from "./ProfileIcon";
+import { acceptInvitation } from "../../features/friendsSlice";
 
 const DashboardAppBar = (props) => {
     const dispatch = useDispatch();
-
+    const user = JSON.parse(localStorage.getItem("userDetails"));
+    const acceptInvitationDispatch = (username) => {
+        dispatch(acceptInvitation({
+            userMail: user.userDetails.mail,
+            invitationMail: username
+        }));
+    };
     const switchHandler = (event) => {
         if (event.target.checked) { dispatch(enableDarkMode()); } else { dispatch(enableLightMode()); }
     };
@@ -48,9 +55,10 @@ const DashboardAppBar = (props) => {
                         content={props.userPendingInvitations.length}
                         max={99}
                         invisible={props.userPendingInvitations.length <= 0}
-                        handleAccept={handleLogout}
                         handleReject={handleLogout}
+                        handleAccept={acceptInvitationDispatch}
                         invitations={props.userPendingInvitations}
+
                     />
                     <ProfileIcon theme={props.theme} handleLogout={handleLogout}/>
                 </FormGroup>

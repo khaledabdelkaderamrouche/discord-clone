@@ -46,7 +46,7 @@ const InvitationsContainer = (props) => {
                                 <Avatar src={require(`../../../assets/avatars/${invitation.avatar}`)} sx={{ margin: "5px" }}/>
                             </ListItemAvatar>
                             <ListItemText primary={invitation.username} sx={{ marginRight: "15px" }}/>
-                            <IconButton edge="end" aria-label="accept" color={"success"} onClick={handleAccept}>
+                            <IconButton edge="end" aria-label="accept" color={"success"} onClick={() => { handleAccept(invitation.mail); }}>
                                 <CheckIcon />
                             </IconButton>
                             <IconButton edge="end" aria-label="delete" color={"error"} onClick={handleReject}>

@@ -1,6 +1,8 @@
-const {sendInvitation, getInvitations} = require("./friendsFunctions");
+const {sendInvitation, getInvitations, getFriends, acceptInvitation} = require("./friendsFunctions");
 
 exports.controllers = {
     sendInvitation,
-    getInvitations
+    getInvitations,
+    getFriends,
+    acceptInvitation,
 }

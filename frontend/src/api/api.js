@@ -4,7 +4,7 @@ import { logout } from "../features/authSlice";
 
 const apiClient = axios.create({
     baseURL: env.BACKEND_URL,
-    timeout: 1000
+    timeout: 5000
 });
 
 apiClient.interceptors.request.use((config) => {
@@ -44,9 +44,9 @@ export const register = async (data) => {
 };
 
 // SECURE ROUTES
-export const handleInvitationResponse = async (data) => {
+export const acceptInvitation = async (data) => {
     try {
-        return await apiClient.post("/api/v1/friends/invitations", data);
+        return await apiClient.put("/api/v1/friends/invitations/accept", data);
     } catch (e) {
         checkResponseCode(e);
         return {
@@ -78,7 +78,6 @@ export const sendInvitation = async (data) => {
     }
 };
 export const getPendingInvitations = async (data) => {
-    console.log(data);
     try {
         return await apiClient.get("/api/v1/friends/invitations", { params: data });
     } catch (e) {
