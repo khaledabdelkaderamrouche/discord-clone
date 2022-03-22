@@ -11,10 +11,13 @@ import { logout } from "../../features/authSlice";
 import { connectToServer } from "../../Socket.io/socketClient";
 import { getFriends, getPendingInvitations } from "../../features/friendsSlice";
 
+//TODO REFACTOR TO USE STATE IN CHILDS
+//TODO REFACTOR THEME TO CONTEXTE
 const DashboardPage = () => {
     const theme = useSelector((state) => state.theme.value);
     const friends = useSelector((state) => state.friends.value);
     const userFriends = friends.friends;
+    const loadedFriends = friends.loadedFriends;
     const userPendingInvitations = friends.pendingInvitations;
     const user = JSON.parse(localStorage.getItem("userDetails"));
     const dispatch = useDispatch();
@@ -30,11 +33,14 @@ const DashboardPage = () => {
         dispatch(getFriends({
             userMail: user.userDetails.mail
         }));
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+    useEffect(() => {
         dispatch(getPendingInvitations({
             userMail: user.userDetails.mail
         }));
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    }, [userFriends]);
 
     return (
 
@@ -65,16 +71,21 @@ const DashboardPage = () => {
                     numberOfFriends={userFriends.length}
                     numberOfOnlineFriends={userFriends.filter(friend => friend.online).length}
                     theme={theme}>
-                    {userFriends.length > 0 && userFriends.map((friend, key) => {
-                        return (
-                            <DashboardFriend
-                                key={key}
-                                avatar={friend.avatar}
-                                user={friend.username}
-                                online={friend.online}
-                            />
-                        );
-                    })}
+                    {!loadedFriends
+                        ? false
+                        : (userFriends.map((friend, key) => {
+                            return (
+                                <DashboardFriend
+                                    key={key}
+                                    avatar={friend.avatar}
+                                    user={friend.username}
+                                    online={friend.online}
+                                />
+                            );
+                        })
+                        )
+
+                    }
                 </DashboardFriendsBar>
             </Grid>
             <Grid item={true} md={9}>

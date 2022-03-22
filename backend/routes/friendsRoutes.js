@@ -14,4 +14,7 @@ router.get('/',
 router.put('/invitations/accept',
     friendsControllers.controllers.acceptInvitation
 )
+router.put('/invitations/decline',
+    friendsControllers.controllers.declineInvitation
+)
 module.exports = router;

@@ -14,7 +14,6 @@ const DashboardFriendsBar = (props) => {
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
-
     return (
         <Box
             sx={{
@@ -44,15 +43,17 @@ const DashboardFriendsBar = (props) => {
                         ? (
                             props.children
                         )
-                        : (
-                            [...Array(5)].map((e, i) =>
-                                <WrapperFriends key={`d${i}`} >
-                                    <Skeleton key={`i${i}`} variant="circular" width={64} height={64} sx={{ margin: "5px", bgcolor: "rgba(72, 84, 96,0.5)" }}/>
-                                    <Skeleton key={`t${i}`} variant="text" width={180} sx={{ bgcolor: "rgba(72, 84, 96,0.5)" }}/>
-                                </WrapperFriends>
-                            )
+                        : props.children === false
+                            ? (
+                                [...Array(5)].map((e, i) =>
+                                    <WrapperFriends key={`d${i}`} >
+                                        <Skeleton key={`i${i}`} variant="circular" width={64} height={64} sx={{ margin: "5px", bgcolor: "rgba(72, 84, 96,0.5)" }}/>
+                                        <Skeleton key={`t${i}`} variant="text" width={180} sx={{ bgcolor: "rgba(72, 84, 96,0.5)" }}/>
+                                    </WrapperFriends>
+                                )
 
-                        )
+                            )
+                            : null
                 }
             </Stack>
             <DashboardFriendModal handleClose={handleClose} open={open} setOpen={setOpen} />

@@ -55,6 +55,17 @@ export const acceptInvitation = async (data) => {
         };
     }
 };
+export const declineInvitation = async (data) => {
+    try {
+        return await apiClient.put("/api/v1/friends/invitations/decline", data);
+    } catch (e) {
+        checkResponseCode(e);
+        return {
+            error: true,
+            message: e
+        };
+    }
+};
 export const getFriends = async (data) => {
     try {
         return await apiClient.get("/api/v1/friends/", { params: data });

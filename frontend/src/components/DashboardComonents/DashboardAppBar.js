@@ -10,13 +10,20 @@ import PropTypes from "prop-types";
 import { logout } from "../../features/authSlice";
 import FriendsBadge from "./friends/FriendsBadge";
 import ProfileIcon from "./ProfileIcon";
-import { acceptInvitation } from "../../features/friendsSlice";
+import { acceptInvitation, declineInvitation } from "../../features/friendsSlice";
+
 
 const DashboardAppBar = (props) => {
     const dispatch = useDispatch();
     const user = JSON.parse(localStorage.getItem("userDetails"));
     const acceptInvitationDispatch = (username) => {
         dispatch(acceptInvitation({
+            userMail: user.userDetails.mail,
+            invitationMail: username
+        }));
+    };
+    const declineInvitationDispatch = (username) => {
+        dispatch(declineInvitation({
             userMail: user.userDetails.mail,
             invitationMail: username
         }));
@@ -55,7 +62,7 @@ const DashboardAppBar = (props) => {
                         content={props.userPendingInvitations.length}
                         max={99}
                         invisible={props.userPendingInvitations.length <= 0}
-                        handleReject={handleLogout}
+                        handleReject={declineInvitationDispatch}
                         handleAccept={acceptInvitationDispatch}
                         invitations={props.userPendingInvitations}
 

@@ -7,7 +7,8 @@ const initialState = {
     friends: [
     ],
     pendingInvitations: [
-    ]
+    ],
+    loadedFriends: false
 };
 
 export const friendsSlice = createSlice({
@@ -17,20 +18,24 @@ export const friendsSlice = createSlice({
     reducers: {
         getFriendsSuccess: (state, action) => {
             state.value.friends = action.payload;
+            state.value.loadedFriends = true;
         },
         getPendingInvitationsSuccess: (state, action) => {
             state.value.pendingInvitations = action.payload;
+            state.value.loadedFriends = true;
         },
         sendInvitationSuccess: (state, action) => {
         },
         acceptInvitationSuccess: (state, action) => {
             state.value.friends = action.payload.friends;
-            state.value.pendingInvitations = action.payload.invitations;
+        },
+        declineInvitationSuccess: (state, action) => {
+            state.value.invitations = [];
         }
 
     }
 });
-export const { getFriendsSuccess, sendInvitationSuccess, getPendingInvitationsSuccess, acceptInvitationSuccess } = friendsSlice.actions;
+export const { getFriendsSuccess, sendInvitationSuccess, getPendingInvitationsSuccess, acceptInvitationSuccess, declineInvitationSuccess } = friendsSlice.actions;
 export default friendsSlice.reducer;
 
 export const getPendingInvitations = (data) => async (dispatch) => {
@@ -102,9 +107,31 @@ export const acceptInvitation = (data) => async dispatch => {
                 options: options
             }));
         } else {
-            console.log(response.data);
-            console.log(response.data.friends);
             dispatch(acceptInvitationSuccess(response.data));
+        }
+    } catch (e) {
+        dispatch(displayAlert({
+            open: true,
+            options: {
+                text: e.message,
+                severity: "error",
+                filled: true
+            }
+        }));
+        return console.error(e.message);
+    }
+};
+export const declineInvitation = (data) => async dispatch => {
+    try {
+        const response = await api.declineInvitation(data);
+        if (response.error) {
+            const options = { ...handleResponse(response), ...{ filled: true } };
+            dispatch(displayAlert({
+                open: true,
+                options: options
+            }));
+        } else {
+            dispatch(declineInvitationSuccess(response.data));
         }
     } catch (e) {
         dispatch(displayAlert({

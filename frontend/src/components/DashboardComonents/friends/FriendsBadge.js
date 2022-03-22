@@ -49,7 +49,7 @@ const InvitationsContainer = (props) => {
                             <IconButton edge="end" aria-label="accept" color={"success"} onClick={() => { handleAccept(invitation.mail); }}>
                                 <CheckIcon />
                             </IconButton>
-                            <IconButton edge="end" aria-label="delete" color={"error"} onClick={handleReject}>
+                            <IconButton edge="end" aria-label="delete" color={"error"} onClick={() => { handleReject(invitation.mail); }}>
                                 <CloseIcon />
                             </IconButton>
                         </ListItem>
