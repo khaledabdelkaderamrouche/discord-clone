@@ -8,12 +8,20 @@ import RedirectInfo from "../../shared/RedirectInfo";
 import { WrapperFriends } from "../../shared/Wrappers";
 import CustomPrimaryButton from "../../shared/CustomPrimaryButton";
 import DashboardFriendModal from "./DashboardFriendModal";
+import { useSelector } from "react-redux";
+import DashboardFriend from "./DashboardFriend";
 
 const DashboardFriendsBar = (props) => {
     const color = props.theme.textColor1;
     const [open, setOpen] = React.useState(false);
+    const friends = useSelector((state) => state.friends.value);
+    const userFriends = friends.friends;
+    const loadedFriends = friends.loadedFriends;
+    const numberOfFriends = userFriends.length;
+    const numberOfOnlineFriends = userFriends.filter(friend => friend.online).length;
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
+
     return (
         <Box
             sx={{
@@ -32,26 +40,34 @@ const DashboardFriendsBar = (props) => {
                 disabled={false}
                 onClick={handleOpen}
             />
-            <RedirectInfo text={`You have ${props.numberOfOnlineFriends}/${props.numberOfFriends} online friends`} additionalStyles={{ height: "0.6em", padding: "10px", color: color }} />
+            <RedirectInfo text={`You have ${numberOfOnlineFriends}/${numberOfFriends} online friends`} additionalStyles={{ height: "0.6em", padding: "10px", color: color }} />
 
             <CustomDivider color={color}/>
 
             <Stack direction="column" spacing={2}>
-
                 {
-                    props.children
+                    !loadedFriends
                         ? (
-                            props.children
+                            [...Array(5)].map((e, i) =>
+                                <WrapperFriends key={`d${i}`} >
+                                    <Skeleton key={`i${i}`} variant="circular" width={64} height={64} sx={{ margin: "5px", bgcolor: "rgba(72, 84, 96,0.5)" }}/>
+                                    <Skeleton key={`t${i}`} variant="text" width={180} sx={{ bgcolor: "rgba(72, 84, 96,0.5)" }}/>
+                                </WrapperFriends>
+                            )
                         )
-                        : props.children === false
+                        : userFriends && loadedFriends
                             ? (
-                                [...Array(5)].map((e, i) =>
-                                    <WrapperFriends key={`d${i}`} >
-                                        <Skeleton key={`i${i}`} variant="circular" width={64} height={64} sx={{ margin: "5px", bgcolor: "rgba(72, 84, 96,0.5)" }}/>
-                                        <Skeleton key={`t${i}`} variant="text" width={180} sx={{ bgcolor: "rgba(72, 84, 96,0.5)" }}/>
-                                    </WrapperFriends>
+                                (userFriends.map((friend, key) => {
+                                    return (
+                                        <DashboardFriend
+                                            key={key}
+                                            avatar={friend.avatar}
+                                            user={friend.username}
+                                            online={friend.online}
+                                        />
+                                    );
+                                })
                                 )
-
                             )
                             : null
                 }
@@ -63,8 +79,6 @@ const DashboardFriendsBar = (props) => {
 
 DashboardFriendsBar.propTypes = {
     children: PropTypes.any,
-    numberOfFriends: PropTypes.number.isRequired,
-    numberOfOnlineFriends: PropTypes.number.isRequired,
     theme: PropTypes.object.isRequired
 };
 export default DashboardFriendsBar;

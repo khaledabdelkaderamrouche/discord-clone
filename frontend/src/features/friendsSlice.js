@@ -22,15 +22,14 @@ export const friendsSlice = createSlice({
         },
         getPendingInvitationsSuccess: (state, action) => {
             state.value.pendingInvitations = action.payload;
-            state.value.loadedFriends = true;
         },
         sendInvitationSuccess: (state, action) => {
         },
         acceptInvitationSuccess: (state, action) => {
-            state.value.friends = action.payload.friends;
+            state.value.friends = action.payload;
         },
         declineInvitationSuccess: (state, action) => {
-            state.value.invitations = [];
+            state.value.pendingInvitations = action.payload;
         }
 
     }
@@ -107,7 +106,7 @@ export const acceptInvitation = (data) => async dispatch => {
                 options: options
             }));
         } else {
-            dispatch(acceptInvitationSuccess(response.data));
+            dispatch(acceptInvitationSuccess(response.data.friends));
         }
     } catch (e) {
         dispatch(displayAlert({
@@ -131,7 +130,7 @@ export const declineInvitation = (data) => async dispatch => {
                 options: options
             }));
         } else {
-            dispatch(declineInvitationSuccess(response.data));
+            dispatch(declineInvitationSuccess(response.data.invitations));
         }
     } catch (e) {
         dispatch(displayAlert({

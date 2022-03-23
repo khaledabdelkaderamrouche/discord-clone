@@ -4,7 +4,7 @@ import Toolbar from "@mui/material/Toolbar";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormGroup from "@mui/material/FormGroup";
 import MaterialUISwitch from "./MaterialUiSwitch";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { enableDarkMode, enableLightMode } from "../../features/themeSlice";
 import PropTypes from "prop-types";
 import { logout } from "../../features/authSlice";
@@ -12,19 +12,17 @@ import FriendsBadge from "./friends/FriendsBadge";
 import ProfileIcon from "./ProfileIcon";
 import { acceptInvitation, declineInvitation } from "../../features/friendsSlice";
 
-
 const DashboardAppBar = (props) => {
     const dispatch = useDispatch();
-    const user = JSON.parse(localStorage.getItem("userDetails"));
+    const friends = useSelector((state) => state.friends.value);
+    const userPendingInvitations = friends.pendingInvitations;
     const acceptInvitationDispatch = (username) => {
         dispatch(acceptInvitation({
-            userMail: user.userDetails.mail,
             invitationMail: username
         }));
     };
     const declineInvitationDispatch = (username) => {
         dispatch(declineInvitation({
-            userMail: user.userDetails.mail,
             invitationMail: username
         }));
     };
@@ -34,6 +32,7 @@ const DashboardAppBar = (props) => {
     const handleLogout = () => {
         dispatch(logout());
     };
+
     return (
 
         <AppBar position="static" sx={{
@@ -59,12 +58,12 @@ const DashboardAppBar = (props) => {
                     <FriendsBadge
                         theme={props.theme}
                         color={props.theme.textColor1}
-                        content={props.userPendingInvitations.length}
+                        content={userPendingInvitations.length}
                         max={99}
-                        invisible={props.userPendingInvitations.length <= 0}
+                        invisible={userPendingInvitations.length <= 0}
                         handleReject={declineInvitationDispatch}
                         handleAccept={acceptInvitationDispatch}
-                        invitations={props.userPendingInvitations}
+                        invitations={userPendingInvitations}
 
                     />
                     <ProfileIcon theme={props.theme} handleLogout={handleLogout}/>
@@ -74,7 +73,6 @@ const DashboardAppBar = (props) => {
     );
 };
 DashboardAppBar.propTypes = {
-    theme: PropTypes.object.isRequired,
-    userPendingInvitations: PropTypes.array.isRequired
+    theme: PropTypes.object.isRequired
 };
 export default DashboardAppBar;

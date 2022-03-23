@@ -14,7 +14,7 @@ export function handleResponse (response) {
             severity: "warning"
         };
     } else {
-        if ((response.status === 200 || response.status === 201) && response.data?.response) {
+        if ((response.status === 200 || response.status === 201) && response.data) {
             return {
                 text: response.data,
                 title: response.statusText,
