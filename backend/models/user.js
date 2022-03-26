@@ -5,8 +5,8 @@ const userSchema = new mongoose.Schema({
     username:{type: 'string',unique: true, required: true},
     mail:{type: 'string',unique: true, required: true},
     password:{type: 'string', required: true},
-    friends: [{ type : ObjectId, ref: 'User' }],
-    invitations: [{ type : ObjectId, ref: 'User' }],
+    friends: [{ type : ObjectId, ref: 'user' }],
+    invitations: [{ type : ObjectId, ref: 'user' }],
     number:{type: 'string'},
     avatar:{type: 'string'},
 });

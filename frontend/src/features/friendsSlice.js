@@ -20,13 +20,22 @@ export const friendsSlice = createSlice({
             state.value.friends = action.payload;
             state.value.loadedFriends = true;
         },
+        updateFriendsSuccess: (state, action) => {
+            console.log(action.payload);
+            state.value.friends.push(action.payload);
+        },
         getPendingInvitationsSuccess: (state, action) => {
+            console.log("khaled@gmail.com");
             state.value.pendingInvitations = action.payload;
+        },
+        getPendingInvitationSuccess: (state, action) => {
+            state.value.pendingInvitations.push(action.payload);
         },
         sendInvitationSuccess: (state, action) => {
         },
         acceptInvitationSuccess: (state, action) => {
-            state.value.friends = action.payload;
+            state.value.friends = action.payload.friends;
+            state.value.pendingInvitations = action.payload.pendingInvitations;
         },
         declineInvitationSuccess: (state, action) => {
             state.value.pendingInvitations = action.payload;
@@ -34,13 +43,9 @@ export const friendsSlice = createSlice({
 
     }
 });
-export const { getFriendsSuccess, sendInvitationSuccess, getPendingInvitationsSuccess, acceptInvitationSuccess, declineInvitationSuccess } = friendsSlice.actions;
-export default friendsSlice.reducer;
-
 export const getPendingInvitations = (data) => async (dispatch) => {
     try {
         const response = await api.getPendingInvitations(data);
-
         if (!response.error) {
             dispatch(getPendingInvitationsSuccess(response.data.invitations));
         }
@@ -55,6 +60,14 @@ export const getPendingInvitations = (data) => async (dispatch) => {
         }));
         return console.error(e.message);
     }
+};
+export const getPendingInvitation = (data) => async (dispatch) => {
+    const { pendingInvitation } = data;
+    dispatch(getPendingInvitationSuccess(pendingInvitation));
+};
+export const updateFriends = (data) => async (dispatch) => {
+    const { friend } = data;
+    dispatch(updateFriendsSuccess(friend));
 };
 export const getFriends = (data) => async (dispatch) => {
     try {
@@ -106,7 +119,7 @@ export const acceptInvitation = (data) => async dispatch => {
                 options: options
             }));
         } else {
-            dispatch(acceptInvitationSuccess(response.data.friends));
+            dispatch(acceptInvitationSuccess(response.data));
         }
     } catch (e) {
         dispatch(displayAlert({
@@ -144,3 +157,13 @@ export const declineInvitation = (data) => async dispatch => {
         return console.error(e.message);
     }
 };
+export const {
+    getFriendsSuccess,
+    sendInvitationSuccess,
+    getPendingInvitationsSuccess,
+    acceptInvitationSuccess,
+    declineInvitationSuccess,
+    getPendingInvitationSuccess,
+    updateFriendsSuccess
+} = friendsSlice.actions;
+export default friendsSlice.reducer;

@@ -18,12 +18,9 @@ const DashboardFriendModal = (props) => {
         if (valid) { return "Press to invite friend !"; } else { return "Please enter a valid email address."; }
     };
     const handleInvite = () => {
-        const user = JSON.parse(localStorage.getItem("userDetails"));
-        const senderMail = user.userDetails.mail;
         const receiverMail = mail;
 
         const invitationSent = dispatch(sendInvitation({
-            senderMail,
             receiverMail
         }));
         invitationSent.then((result) => {

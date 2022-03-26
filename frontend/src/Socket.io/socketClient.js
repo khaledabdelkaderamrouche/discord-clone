@@ -1,7 +1,7 @@
 import io from "socket.io-client";
 import env from "react-dotenv";
 
-let socket = null;
+export let socket = null;
 
 export const connectToServer = (user) => {
     const { userDetails } = user;

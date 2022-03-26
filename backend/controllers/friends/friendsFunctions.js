@@ -1,4 +1,5 @@
 const User = require("../../models/user");
+const { emitNewInvitation, emitAcceptedInvitation } = require("../../sockerServer");
 
 const sendInvitation= async (req, res)=>{
     try{
@@ -8,8 +9,10 @@ const sendInvitation= async (req, res)=>{
         if(senderMail === receiverMail)
             return  res.status(409).send("You are lonely");
 
-        const senderUser =await User.findOne({mail:senderMail.toLowerCase()});
+        const senderUser =await User.findOne({mail:senderMail.toLowerCase()},["mail", "avatar", "username"]);
         const receiverUser =await User.findOne({mail:receiverMail.toLowerCase()});
+
+
 
         if(!senderUser)
             return  res.status(428).send("The sender doesn't exist");
@@ -18,8 +21,16 @@ const sendInvitation= async (req, res)=>{
 
 
         const updated= await User.updateOne({mail: receiverMail}, {$addToSet: {invitations: senderUser._id}})
-        if(!updated)
+
+        if(!updated.modifiedCount)
+            return  res.status(409).send('You already sent an invitation to this user.')
+
+        if(!updated.acknowledged)
             return  res.status(400).send('Server Error')
+
+
+        const {_id,...senderUserWithoutId}=senderUser._doc
+        emitNewInvitation (receiverUser._id, senderUserWithoutId);
 
         return res.status(200).send('The invitation was sent to the user.')
 
@@ -31,12 +42,15 @@ const getInvitations= async (req, res)=>{
     try{
         const userMail = req.user.mail;
 
-        const user =await User.findOne({mail:userMail.toLowerCase()});
+        const user =await User.findOne({mail:userMail.toLowerCase()}).populate({ path: 'invitations', select: 'username avatar mail -_id'});
 
         if(!user)
             return  res.status(428).send("The user doesn't exist");
 
-        const invitations= await User.find({ 'invitations': user._id }, ["mail", "avatar", "username", "-_id"])
+
+        const invitations= user.invitations;
+
+
         if(invitations){
             return res.status(200).json({invitations:invitations})
         }else{
@@ -50,7 +64,7 @@ const getInvitations= async (req, res)=>{
 const getFriends= async (req, res)=>{
 
     try{
-        //resetUsers();
+        resetUsers();
         //await new Promise(resolve => setTimeout(resolve, 4000));
         const userMail = req.user.mail;
 
@@ -86,20 +100,21 @@ const handleInvitation= async (req, res, isAccept)=>{
         const {invitationMail} = req.body;
         const userMail = req.user.mail;
 
-        const user =await User.findOne({mail:userMail.toLowerCase()});
-        const invitationUser =await User.findOne({mail:invitationMail.toLowerCase()});
+        const user =await User.findOne({mail:userMail.toLowerCase()}, ["mail", "avatar", "username", "friends"]);
+        const invitationUser =await User.findOne({mail:invitationMail.toLowerCase()}, ["mail", "avatar", "username"]);
+
 
         if(!user || !invitationUser)
             return  res.status(428).send("The user doesn't exist");
 
-        const userInInvitations=await User.findOne({mail:invitationMail, invitations: user._id});
+        const userInInvitations=await User.findOne({mail:userMail, invitations: invitationUser._id});
 
         if(!userInInvitations)
             return  res.status(428).send("The invitation doesn't exist");
 
-        const removeFromInvitations=await User.updateOne({ mail: invitationMail}, {
+        const removeFromInvitations=await User.updateOne({ mail: userMail}, {
             $pull: {
-                invitations: user._id,
+                invitations: invitationUser._id,
             }
         });
         if(isAccept){
@@ -115,17 +130,25 @@ const handleInvitation= async (req, res, isAccept)=>{
             });
             if(!addToFriends || !addToInvitationFriends)
                 return  res.status(400).send('Server Error')
+
+            const {_id, friends, ...userWithoutId}=user._doc
+
+            emitAcceptedInvitation (invitationUser._id, userWithoutId);
         }
         if(!removeFromInvitations)
             return  res.status(400).send('Server Error')
-        const friendsIds=[...user.friends, userInInvitations._id];
-        const friends= await User.find({ '_id': { $in: friendsIds }},["mail", "avatar", "username", "-_id"])
-        const invitations= await User.find({ 'invitations': user._id }, ["mail", "avatar", "username", "-_id"])
 
+        const friendsIds=[...user.friends, invitationUser._id];
+        const friends= await User.find({ '_id': { $in: friendsIds }},["mail", "avatar", "username", "-_id"])
+        const userWithInvitations= await User.findOne({mail:userMail.toLowerCase()}).populate({ path: 'invitations', select: 'username avatar mail -_id'});
+        const invitations=userWithInvitations.invitations;
+        console.log("khaled@gmail.com");
+        console.log("invitations");
+        console.log(invitations);
         if(!invitations)
             return  res.status(400).send('Server Error')
 
-        return res.status(200).json({friends:friends, invitations: invitations})
+        return res.status(200).json({friends:friends, pendingInvitations: invitations})
     }catch (e) {
         return res.status(500).send('Error: ' + e.message)
     }
@@ -135,8 +158,10 @@ const resetUsers= async ()=>{
         const userMail="khaled@gmail.com";
 
         const user =await User.findOne({mail:userMail.toLowerCase()});
-        const deleteFriends =await User.updateMany({mail:userMail.toLowerCase()}, { $set: { friends: [] }});
-        const addInvitations=await User.updateMany({$not:{mail: userMail}}, { $set: { invitations: [user._id] }});
+
+        const deleteFriends =await User.updateMany({ $set: { friends: [] }});
+        // const addInvitations=await User.updateMany({$not:{mail: userMail}}, { $set: { invitations: [user._id] }});
+        const addInvitations=await User.updateMany({ $set: { invitations: [] }});
 
 
     }catch (e) {

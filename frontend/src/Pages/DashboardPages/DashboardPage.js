@@ -7,10 +7,13 @@ import DashboardFriendsBar from "../../components/DashboardComonents/friends/Das
 import DashboardAppBar from "../../components/DashboardComonents/DashboardAppBar";
 import DashboardChatSpace from "../../components/DashboardComonents/DashboardChatSpace";
 import { logout } from "../../features/authSlice";
-import { connectToServer } from "../../Socket.io/socketClient";
-import { getFriends, getPendingInvitations } from "../../features/friendsSlice";
-
-// TODO REFACTOR TO USE STATE IN CHILDS
+import { connectToServer, socket } from "../../Socket.io/socketClient";
+import {
+    getFriends,
+    getPendingInvitation,
+    getPendingInvitations,
+    updateFriends
+} from "../../features/friendsSlice";
 // TODO REFACTOR THEME TO CONTEXTE
 const DashboardPage = () => {
     const theme = useSelector((state) => state.theme.value);
@@ -26,15 +29,23 @@ const DashboardPage = () => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
     useEffect(() => {
-        dispatch(getPendingInvitations({
-        }));
+        dispatch(getPendingInvitations({}));
         // eslint-disable-next-line react-hooks/exhaustive-deps
     });
     useEffect(() => {
-        dispatch(getFriends({
-        }));
+        dispatch(getFriends({}));
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
+    useEffect(() => {
+        socket.on("friend-invitation", payload => {
+            const { pendingInvitation } = payload;
+            dispatch(getPendingInvitation({ pendingInvitation }));
+        });
+        socket.on("friend-invitation-accepted", payload => {
+            const { friend } = payload;
+            dispatch(updateFriends({ friend }));
+        });
+    });
     return (
 
         <Grid container sx={{
