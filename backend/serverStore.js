@@ -1,5 +1,5 @@
 const connectedUsers= new Map();
-
+const {getUserFriendsIds} = require("./controllers/friends/friendsFunctions");
 let io = null;
 
 const setSocketServerInstance= (ioInstance)=>{
@@ -14,10 +14,16 @@ const addUser = ({socketId, userId})=>{
 };
 const removeUser = (userId)=>{
     connectedUsers.delete(userId);
-    console.log(connectedUsers);
 };
 const getUser = (userId)=>{
     return connectedUsers.get(userId.valueOf());
+};
+const getOnlineUsers = ()=>{
+    let result=[]
+    connectedUsers.forEach((value,key)=>{
+        result.push(key)
+    })
+    return result;
 };
 const newConnectionHandler=async (socket, io)=>{
     const userDetails  = socket.user;
@@ -25,6 +31,7 @@ const newConnectionHandler=async (socket, io)=>{
         socketId: socket.id,
         userId: userDetails.userId,
     })
+
 }
 const disconnectionHandler=async (socket, io)=>{
     const userDetails  = socket.user;
@@ -36,5 +43,6 @@ module.exports ={
     disconnectionHandler,
     setSocketServerInstance,
     getSocketServerInstance,
-    getUser
+    getUser,
+    getOnlineUsers
 }

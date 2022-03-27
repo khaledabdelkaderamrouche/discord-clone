@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, current } from "@reduxjs/toolkit";
 import * as api from "../api/api";
 import { displayAlert } from "./alertSlice";
 import { handleResponse } from "../utils/ErrorHandler";
@@ -21,11 +21,24 @@ export const friendsSlice = createSlice({
             state.value.loadedFriends = true;
         },
         updateFriendsSuccess: (state, action) => {
-            console.log(action.payload);
             state.value.friends.push(action.payload);
         },
+        updateFriendsStatusSuccess: (state, action) => {
+            const onlineUsers = action.payload;
+            const friends = state.value.friends;
+            const resultFriends = [];
+            // TODO THINK OF A CLEANER WAY INSTEAD OF DELETE
+            friends.forEach((friend) => {
+                if (onlineUsers.includes(friend._id)) {
+                    resultFriends.push({ online: true, ...friend });
+                } else {
+                    delete friend.online;
+                    resultFriends.push({ ...friend });
+                }
+            });
+            state.value.friends = resultFriends;
+        },
         getPendingInvitationsSuccess: (state, action) => {
-            console.log("khaled@gmail.com");
             state.value.pendingInvitations = action.payload;
         },
         getPendingInvitationSuccess: (state, action) => {
@@ -69,6 +82,11 @@ export const updateFriends = (data) => async (dispatch) => {
     const { friend } = data;
     dispatch(updateFriendsSuccess(friend));
 };
+export const updateFriendsStatus = (data) => async (dispatch) => {
+    const { onlineUsers } = data;
+    dispatch(updateFriendsStatusSuccess(onlineUsers));
+};
+
 export const getFriends = (data) => async (dispatch) => {
     try {
         const response = await api.getFriends(data);
@@ -164,6 +182,7 @@ export const {
     acceptInvitationSuccess,
     declineInvitationSuccess,
     getPendingInvitationSuccess,
-    updateFriendsSuccess
+    updateFriendsSuccess,
+    updateFriendsStatusSuccess
 } = friendsSlice.actions;
 export default friendsSlice.reducer;

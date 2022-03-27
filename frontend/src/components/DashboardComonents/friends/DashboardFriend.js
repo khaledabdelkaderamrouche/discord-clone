@@ -21,7 +21,7 @@ const DashboardFriend = (props) => {
 };
 
 DashboardFriend.propTypes = {
-    online: PropTypes.bool.isRequired,
+    online: PropTypes.bool,
     user: PropTypes.string.isRequired,
     avatar: PropTypes.string.isRequired
 };

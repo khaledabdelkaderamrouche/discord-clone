@@ -12,7 +12,7 @@ import {
     getFriends,
     getPendingInvitation,
     getPendingInvitations,
-    updateFriends
+    updateFriends, updateFriendsStatus
 } from "../../features/friendsSlice";
 // TODO REFACTOR THEME TO CONTEXTE
 const DashboardPage = () => {
@@ -44,6 +44,10 @@ const DashboardPage = () => {
         socket.on("friend-invitation-accepted", payload => {
             const { friend } = payload;
             dispatch(updateFriends({ friend }));
+        });
+        socket.on("online-users", (data) => {
+            const { onlineUsers } = data;
+            dispatch(updateFriendsStatus({ onlineUsers }));
         });
     });
     return (

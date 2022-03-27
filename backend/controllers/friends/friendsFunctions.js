@@ -64,7 +64,7 @@ const getInvitations= async (req, res)=>{
 const getFriends= async (req, res)=>{
 
     try{
-        resetUsers();
+        //resetUsers();
         //await new Promise(resolve => setTimeout(resolve, 4000));
         const userMail = req.user.mail;
 
@@ -76,7 +76,7 @@ const getFriends= async (req, res)=>{
 
         friendsIds=friendsIds.friends;
 
-        const friends= await User.find({ '_id': { $in: friendsIds }},["mail", "avatar", "username", "-_id"])
+        const friends= await User.find({ '_id': { $in: friendsIds }},["mail", "avatar", "username"])
 
 
         if(friends){
@@ -139,12 +139,10 @@ const handleInvitation= async (req, res, isAccept)=>{
             return  res.status(400).send('Server Error')
 
         const friendsIds=[...user.friends, invitationUser._id];
-        const friends= await User.find({ '_id': { $in: friendsIds }},["mail", "avatar", "username", "-_id"])
+        const friends= await User.find({ '_id': { $in: friendsIds }},["mail", "avatar", "username"])
         const userWithInvitations= await User.findOne({mail:userMail.toLowerCase()}).populate({ path: 'invitations', select: 'username avatar mail -_id'});
         const invitations=userWithInvitations.invitations;
-        console.log("khaled@gmail.com");
-        console.log("invitations");
-        console.log(invitations);
+
         if(!invitations)
             return  res.status(400).send('Server Error')
 
@@ -173,5 +171,5 @@ module.exports = {
     getInvitations,
     getFriends,
     acceptInvitation,
-    declineInvitation
+    declineInvitation,
 };

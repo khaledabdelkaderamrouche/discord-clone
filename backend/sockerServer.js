@@ -1,7 +1,7 @@
 const {connectedUsers, setSocketServerInstance, getSocketServerInstance, getUser} = require("./serverStore");
 
-const authSocket = require('./middleware/authSocket')
-const {newConnectionHandler, disconnectionHandler} = require("./serverStore");
+const authSocket = require('./middleware/authSocket');
+const {newConnectionHandler, disconnectionHandler, getOnlineUsers} = require("./serverStore");
 
 const registerSocketServer = (server) =>{
     const io = require('socket.io') (server,{
@@ -15,14 +15,14 @@ const registerSocketServer = (server) =>{
         authSocket(socket,next)
     })
     io.on('connection', (socket) => {
-        console.log('user connected');
-        newConnectionHandler(socket, io)
-        console.log("connectedUsers");
-        console.log(connectedUsers);
+        newConnectionHandler(socket, io);
         socket.on('disconnect',() => {
             disconnectionHandler(socket);
         })
-    })
+    });
+    setInterval(()=> {
+        emitOnlineUsers();
+    }, 5000);
 };
 const emitNewInvitation = (receiverId, sender) =>{
 
@@ -33,6 +33,11 @@ const emitNewInvitation = (receiverId, sender) =>{
     });
 
 };
+const emitOnlineUsers = ()=>{
+    const io=getSocketServerInstance();
+    const onlineUsers = getOnlineUsers();
+    io.emit('online-users', {onlineUsers})
+}
 const emitAcceptedInvitation = (receiverId, sender) =>{
 
     const io=getSocketServerInstance();

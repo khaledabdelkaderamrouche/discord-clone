@@ -18,7 +18,7 @@ router.put('/invitations/accept',
     auth,
     friendsControllers.controllers.acceptInvitation
 )
-router.put('/invitations/decline',auth,
+router.put('/invitations/decline',
     auth,
     friendsControllers.controllers.declineInvitation
 )

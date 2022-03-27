@@ -5,5 +5,5 @@ exports.controllers = {
     getInvitations,
     getFriends,
     acceptInvitation,
-    declineInvitation
+    declineInvitation,
 }
