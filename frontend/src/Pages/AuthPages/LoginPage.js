@@ -8,7 +8,6 @@ import { validateMail, validatePassword } from "../../utils/Validators";
 import AuthHeader from "../../components/shared/AuthHeader";
 import { login } from "../../features/authSlice";
 import { useNavigate } from "react-router-dom";
-import AlertNotification from "../../components/shared/AlertNotification";
 
 const LoginPage = () => {
     const navigate = useNavigate();

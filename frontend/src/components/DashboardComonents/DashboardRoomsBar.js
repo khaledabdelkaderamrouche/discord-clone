@@ -33,11 +33,11 @@ const DashboardRoomsBar = (props) => {
             }}/>
             <CustomDivider color={color}/>
             <CustomAddButton disabled={false} onClick={onClick} additionalStyles={{
-                border: "1px solid " + backgroundColor,
+                border: `1px solid ${backgroundColor}`,
                 color: color,
                 "&:hover": {
                     backgroundColor: backgroundColor,
-                    border: "1px solid " + color
+                    border: `1px solid  ${color}`
                 }
             }}/>
             <Stack direction="column" spacing={2}>

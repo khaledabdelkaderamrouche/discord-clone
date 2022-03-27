@@ -21,6 +21,6 @@ const DashboardChatHeaderSpace = (props) => {
 
 DashboardChatHeaderSpace.propTypes = {
     theme: PropTypes.object.isRequired,
-    activeConversation: PropTypes.string.isRequired
+    activeConversation: PropTypes.string
 };
 export default DashboardChatHeaderSpace;

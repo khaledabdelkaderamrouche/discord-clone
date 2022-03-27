@@ -1,5 +1,5 @@
 const User = require("../../models/user");
-const { emitNewInvitation, emitAcceptedInvitation } = require("../../sockerServer");
+
 
 const sendInvitation= async (req, res)=>{
     try{
@@ -60,7 +60,6 @@ const getInvitations= async (req, res)=>{
         return res.status(500).send('Error: ' + e.message)
     }
 }
-
 const getFriends= async (req, res)=>{
 
     try{
@@ -88,7 +87,6 @@ const getFriends= async (req, res)=>{
         return res.status(500).send('Error: ' + e.message)
     }
 }
-
 const acceptInvitation= async (req, res)=>{
     await handleInvitation(req, res, true)
 }
@@ -173,3 +171,4 @@ module.exports = {
     acceptInvitation,
     declineInvitation,
 };
+const { emitNewInvitation, emitAcceptedInvitation } = require("../../sockerServer");

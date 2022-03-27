@@ -57,21 +57,28 @@ const DashboardChatConversationItem = (props) => {
                     ? (
                         <>
                             <WrapperRight>
-                                <Avatar src={require(`../../assets/avatars/${props.avatar}`)} sx={{ margin: "5px" }}/>
+                                <Avatar src={require(`../../../assets/avatars/${props.avatar}`)} sx={{ margin: "15px" }}/>
                                 <UserName color1={color1}>{props.user}</UserName>
                                 <MsgTime color={color2}>{props.dateTime}</MsgTime>
                             </WrapperRight>
-                            <UserText color1={color1}>{props.children}</UserText>
+                            <UserText color1={color1}
+                                      additionalStyles={{
+                                display: "flex",
+                                flexDirection: "row-reverse"
+                            }}>
+                                {props.children}</UserText>
+
                         </>
                     )
                     : (
                         <>
                             <WrapperLeft>
-                                <Avatar src={require(`../../assets/avatars/${props.avatar}`)} sx={{ margin: "5px" }}/>
+                                <Avatar src={require(`../../../assets/avatars/${props.avatar}`)} sx={{ margin: "15px" }}/>
                                 <UserName color1={color1}>{props.user}</UserName>
                                 <MsgTime color={color2}>{props.dateTime}</MsgTime>
                             </WrapperLeft>
                             <UserText color1={color1}>{props.children}</UserText>
+
                         </>
                     )
             }

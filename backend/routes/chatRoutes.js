@@ -7,4 +7,8 @@ router.get('/',
     auth,
     chatControllers.controllers.getConversations
 )
+router.post('/',
+    auth,
+    chatControllers.controllers.sendMessage
+)
 module.exports = router;

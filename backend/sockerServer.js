@@ -1,7 +1,13 @@
-const {connectedUsers, setSocketServerInstance, getSocketServerInstance, getUser} = require("./serverStore");
+const {
+    setSocketServerInstance,
+    getSocketServerInstance,
+    getUser,
+    getOnlineUsers,
+    disconnectionHandler,
+    newConnectionHandler
+} = require("./serverStore");
 
 const authSocket = require('./middleware/authSocket');
-const {newConnectionHandler, disconnectionHandler, getOnlineUsers} = require("./serverStore");
 
 const registerSocketServer = (server) =>{
     const io = require('socket.io') (server,{
@@ -46,11 +52,9 @@ const emitAcceptedInvitation = (receiverId, sender) =>{
     io.to(receiver.socketId).emit('friend-invitation-accepted', {
         friend:sender
     });
-
 };
 module.exports ={
     registerSocketServer,
     emitNewInvitation,
     emitAcceptedInvitation
-
 }

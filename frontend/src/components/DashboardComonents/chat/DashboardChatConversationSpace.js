@@ -3,9 +3,10 @@ import Box from "@mui/material/Box";
 import { Stack } from "@mui/material";
 import PropTypes from "prop-types";
 import DashboardChatConversationItemSkeleton from "./DashboardChatConversationItemSkeleton";
+import DashboardChatConversationItem from "./DashboardChatConversationItem";
 
 const DashboardChatConversationSpace = (props) => {
-    console.log(props.loaded);
+    const conversations = props.conversations;
     return (
         <Box
             sx={{
@@ -13,6 +14,7 @@ const DashboardChatConversationSpace = (props) => {
                 overflowY: "scroll",
                 overflowX: "hidden",
                 width: "100%",
+                height: "80%",
                 alignContent: "center",
                 justifyContent: "flex-start",
                 alignItems: "center",
@@ -34,16 +36,24 @@ const DashboardChatConversationSpace = (props) => {
 
                                 i % 2 === 0
                                     ? (
-                                        <DashboardChatConversationItemSkeleton position={"left"}/>
+                                        <DashboardChatConversationItemSkeleton key={i} position={"left"}/>
                                     )
                                     : (
-                                        <DashboardChatConversationItemSkeleton position={"right"}/>
+                                        <DashboardChatConversationItemSkeleton key={i} position={"right"}/>
                                     )
                             )
                         )
                         : (
 
-                            null
+                            (conversations.map((conversation, key) => {
+                                console.info(conversation);
+                                return (
+                                    <DashboardChatConversationItem key={key} avatar={conversation.avatar} user={conversation.username} dateTime={conversation.timestamp} position={conversation.right ? "right" : "left"} theme={props.theme}>
+                                        {conversation.content}
+                                    </DashboardChatConversationItem>
+                                );
+                            })
+                            )
 
                         )
                 }
@@ -54,7 +64,8 @@ const DashboardChatConversationSpace = (props) => {
 
 DashboardChatConversationSpace.propTypes = {
     loaded: PropTypes.bool.isRequired,
-    children: PropTypes.any
+    conversations: PropTypes.array,
+    theme: PropTypes.object.isRequired
 };
 
 export default DashboardChatConversationSpace;

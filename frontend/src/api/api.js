@@ -111,6 +111,17 @@ export const getConversations = async (data) => {
         };
     }
 };
+export const sendMessage = async (data) => {
+    try {
+        return await apiClient.post("/api/v1/chat/", data);
+    } catch (e) {
+        checkResponseCode(e);
+        return {
+            error: true,
+            message: e
+        };
+    }
+};
 const checkResponseCode = (exception) => {
     const responseCode = exception?.response?.status;
 

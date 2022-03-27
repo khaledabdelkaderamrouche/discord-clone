@@ -161,7 +161,7 @@ export const declineInvitation = (data) => async dispatch => {
                 options: options
             }));
         } else {
-            dispatch(declineInvitationSuccess(response.data.invitations));
+            dispatch(declineInvitationSuccess(response.data.pendingInvitations));
         }
     } catch (e) {
         dispatch(displayAlert({

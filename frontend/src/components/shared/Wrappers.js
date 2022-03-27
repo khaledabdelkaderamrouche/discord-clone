@@ -18,6 +18,7 @@ export const WrapperRight = styled("div")({
     justifyContent: "flex-start",
     alignItems: "center",
     width: "100%"
+
 });
 export const WrapperLeft = styled("div")({
     display: "flex",

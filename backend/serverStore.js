@@ -1,5 +1,4 @@
 const connectedUsers= new Map();
-const {getUserFriendsIds} = require("./controllers/friends/friendsFunctions");
 let io = null;
 
 const setSocketServerInstance= (ioInstance)=>{

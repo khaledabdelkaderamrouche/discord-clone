@@ -2,6 +2,7 @@ const express = require("express");
 const router=express.Router();
 const friendsControllers = require("../controllers/friends/friendsControllers");
 const auth = require("../middleware/auth")
+
 router.post('/invitations',
     auth,
     friendsControllers.controllers.sendInvitation
