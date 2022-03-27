@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import DashboardRoomsBar from "../../components/DashboardComonents/DashboardRoomsBar";
 import DashboardFriendsBar from "../../components/DashboardComonents/friends/DashboardFriendsBar";
 import DashboardAppBar from "../../components/DashboardComonents/DashboardAppBar";
-import DashboardChatSpace from "../../components/DashboardComonents/DashboardChatSpace";
+import DashboardChatSpace from "../../components/DashboardComonents/chat/DashboardChatSpace";
 import { logout } from "../../features/authSlice";
 import { connectToServer, socket } from "../../Socket.io/socketClient";
 import {

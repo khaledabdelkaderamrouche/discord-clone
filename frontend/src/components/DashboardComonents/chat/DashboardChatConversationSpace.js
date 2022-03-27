@@ -5,6 +5,7 @@ import PropTypes from "prop-types";
 import DashboardChatConversationItemSkeleton from "./DashboardChatConversationItemSkeleton";
 
 const DashboardChatConversationSpace = (props) => {
+    console.log(props.loaded);
     return (
         <Box
             sx={{
@@ -27,12 +28,8 @@ const DashboardChatConversationSpace = (props) => {
                 margin: "20px"
             }}>
                 {
-                    props.children
+                    !props.loaded
                         ? (
-                            props.children
-                        )
-                        : (
-
                             [...Array(4)].map((e, i) =>
 
                                 i % 2 === 0
@@ -43,6 +40,10 @@ const DashboardChatConversationSpace = (props) => {
                                         <DashboardChatConversationItemSkeleton position={"right"}/>
                                     )
                             )
+                        )
+                        : (
+
+                            null
 
                         )
                 }
@@ -52,6 +53,7 @@ const DashboardChatConversationSpace = (props) => {
 };
 
 DashboardChatConversationSpace.propTypes = {
+    loaded: PropTypes.bool.isRequired,
     children: PropTypes.any
 };
 

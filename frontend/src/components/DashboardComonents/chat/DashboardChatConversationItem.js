@@ -3,7 +3,7 @@ import Box from "@mui/material/Box";
 import Avatar from "@mui/material/Avatar";
 import PropTypes from "prop-types";
 import { Typography } from "@mui/material";
-import { WrapperLeft, WrapperRight } from "../shared/Wrappers";
+import { WrapperLeft, WrapperRight } from "../../shared/Wrappers";
 
 const MsgTime = (props, color) => {
     return (

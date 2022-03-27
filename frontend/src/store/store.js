@@ -5,12 +5,14 @@ import authReducer from "../features/authSlice";
 import alertReducer from "../features/alertSlice";
 import themeReducer from "../features/themeSlice";
 import friendsSlice from "../features/friendsSlice";
+import chatSlice from "../features/chatSlice";
 
 const rootReducer = combineReducers({
     auth: authReducer,
     alert: alertReducer,
     theme: themeReducer,
-    friends: friendsSlice
+    friends: friendsSlice,
+    chat: chatSlice
 });
 
 const store = createStore(

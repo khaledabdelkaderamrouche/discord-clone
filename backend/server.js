@@ -8,6 +8,7 @@ require('dotenv').config()
 const socketServer=require('./sockerServer');
 const authRouter=require('./routes/authRoutes')
 const friendsRouter=require('./routes/friendsRoutes')
+const chatRouter=require('./routes/chatRoutes')
 
 
 const PORT=process.env.PORT || process.env.API_PORT;
@@ -18,6 +19,7 @@ app.use(cors());
 
 app.use('/api/v1/auth',authRouter);
 app.use('/api/v1/friends',friendsRouter);
+app.use('/api/v1/chat',chatRouter);
 
 const server=http.createServer(app);
 socketServer.registerSocketServer(server);

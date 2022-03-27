@@ -1,7 +1,7 @@
 import React from "react";
 import Box from "@mui/material/Box";
 import PropTypes from "prop-types";
-import RedirectInfo from "../shared/RedirectInfo";
+import RedirectInfo from "../../shared/RedirectInfo";
 
 const DashboardChatHeaderSpace = (props) => {
     return (
@@ -14,12 +14,13 @@ const DashboardChatHeaderSpace = (props) => {
                 justifyContent: "flex-start"
             }}
         >
-            <RedirectInfo text={"You have 3/9 online friends"} additionalStyles={{ fontSize: "large", color: props.theme.textColor1 }} />
+            <RedirectInfo text={props.activeConversation ? `This is your conversation with ${props.activeConversation}` : "Select a friend to start a conversation"} additionalStyles={{ fontSize: "large", color: props.theme.textColor1 }} />
         </Box>
     );
 };
 
 DashboardChatHeaderSpace.propTypes = {
-    theme: PropTypes.object.isRequired
+    theme: PropTypes.object.isRequired,
+    activeConversation: PropTypes.string.isRequired
 };
 export default DashboardChatHeaderSpace;

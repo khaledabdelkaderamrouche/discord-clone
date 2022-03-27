@@ -63,6 +63,7 @@ const DashboardFriendsBar = (props) => {
                                             key={key}
                                             avatar={friend.avatar}
                                             user={friend.username}
+                                            mail={friend.mail}
                                             online={friend.online}
                                         />
                                     );

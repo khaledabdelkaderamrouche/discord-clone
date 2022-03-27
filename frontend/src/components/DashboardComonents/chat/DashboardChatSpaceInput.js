@@ -7,7 +7,8 @@ const InputWrapper = styled("div")({
     height: "28vh",
     width: "100%",
     textAlign: "left",
-    flexGrow: 1
+    flexGrow: 1,
+    margin: "10px"
 });
 const DashboardChatSpaceInput = (props) => {
     return (

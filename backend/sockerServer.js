@@ -22,7 +22,7 @@ const registerSocketServer = (server) =>{
     });
     setInterval(()=> {
         emitOnlineUsers();
-    }, 5000);
+    }, 60000);
 };
 const emitNewInvitation = (receiverId, sender) =>{
 

@@ -4,8 +4,10 @@ import DashboardChatSpaceInput from "./DashboardChatSpaceInput";
 import DashboardChatConversationSpace from "./DashboardChatConversationSpace";
 import DashboardChatHeaderSpace from "./DashboardChatHeaderSpace";
 import PropTypes from "prop-types";
+import { useSelector } from "react-redux";
 
 const DashboardChatSpace = (props) => {
+    const activeConversation = useSelector((state) => state.chat.value);
     return (
         <Box
             sx={{
@@ -17,8 +19,8 @@ const DashboardChatSpace = (props) => {
                 flexDirection: "column"
             }}
         >
-            <DashboardChatHeaderSpace theme={props.theme}/>
-            <DashboardChatConversationSpace>
+            <DashboardChatHeaderSpace theme={props.theme} activeConversation={activeConversation?.activeConversation?.username} />
+            <DashboardChatConversationSpace loaded={activeConversation.loadedMessages}>
                 {/* <DashboardChatConversationItem avatar={"64_2.png"} user={"Khaled Amrouche"} dateTime={"16/03/2022 20:57"} position={"left"} theme={props.theme}>
                     Lorem ipsum dolor sit amet.
                 </DashboardChatConversationItem>

@@ -100,6 +100,17 @@ export const getPendingInvitations = async (data) => {
         };
     }
 };
+export const getConversations = async (data) => {
+    try {
+        return await apiClient.get("/api/v1/chat/", { params: data });
+    } catch (e) {
+        checkResponseCode(e);
+        return {
+            error: true,
+            message: e
+        };
+    }
+};
 const checkResponseCode = (exception) => {
     const responseCode = exception?.response?.status;
 

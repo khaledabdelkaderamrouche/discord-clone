@@ -1,7 +1,7 @@
 import React from "react";
 import Box from "@mui/material/Box";
 import { Skeleton } from "@mui/material";
-import { WrapperLeft, WrapperRight } from "../shared/Wrappers";
+import { WrapperLeft, WrapperRight } from "../../shared/Wrappers";
 import PropTypes from "prop-types";
 
 const DashboardChatConversationItemSkeleton = (props) => {
