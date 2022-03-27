@@ -6,7 +6,6 @@ import Button from "@mui/material/Button";
 import SendIcon from "@mui/icons-material/Send";
 import { useDispatch } from "react-redux";
 import { sendMessage } from "../../../features/chatSlice";
-import { validateMail, validatePassword } from "../../../utils/Validators";
 
 const InputWrapper = styled("div")({
     height: "28vh",
@@ -30,9 +29,10 @@ const DashboardChatSpaceInput = (props) => {
     const handleValueChange = (event) => {
         setContent(event.target.value);
     };
-    const handleClick = () => {
+    const handleClick = async () => {
         setContent("");
-        dispatch(sendMessage({ receiverMail: props.activeConversation, content: content }));
+        await dispatch(sendMessage({ receiverMail: props.activeConversation, content: content }));
+        props.scrollToBottom();
     };
 
     return (
@@ -74,6 +74,7 @@ const DashboardChatSpaceInput = (props) => {
 };
 DashboardChatSpaceInput.propTypes = {
     theme: PropTypes.object.isRequired,
-    activeConversation: PropTypes.string
+    activeConversation: PropTypes.string,
+    scrollToBottom: PropTypes.func.isRequired
 };
 export default DashboardChatSpaceInput;

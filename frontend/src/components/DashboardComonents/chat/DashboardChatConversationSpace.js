@@ -46,7 +46,6 @@ const DashboardChatConversationSpace = (props) => {
                         : (
 
                             (conversations.map((conversation, key) => {
-                                console.info(conversation);
                                 return (
                                     <DashboardChatConversationItem key={key} avatar={conversation.avatar} user={conversation.username} dateTime={conversation.timestamp} position={conversation.right ? "right" : "left"} theme={props.theme}>
                                         {conversation.content}
@@ -58,6 +57,7 @@ const DashboardChatConversationSpace = (props) => {
                         )
                 }
             </Stack>
+            <div ref={props.messagesEndRef} />
         </Box>
     );
 };
@@ -65,7 +65,8 @@ const DashboardChatConversationSpace = (props) => {
 DashboardChatConversationSpace.propTypes = {
     loaded: PropTypes.bool.isRequired,
     conversations: PropTypes.array,
-    theme: PropTypes.object.isRequired
+    theme: PropTypes.object.isRequired,
+    messagesEndRef: PropTypes.object.isRequired
 };
 
 export default DashboardChatConversationSpace;

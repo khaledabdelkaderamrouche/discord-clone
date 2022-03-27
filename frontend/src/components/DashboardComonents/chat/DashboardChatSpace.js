@@ -11,6 +11,7 @@ const DashboardChatSpace = (props) => {
     const loadedMessages = chat.loadedMessages;
     const activeConversation = chat.activeConversation;
     const conversations = chat.conversations;
+
     return (
         <Box
             sx={{
@@ -24,12 +25,14 @@ const DashboardChatSpace = (props) => {
             }}
         >
             <DashboardChatHeaderSpace theme={props.theme} activeConversation={activeConversation?.username} />
-            <DashboardChatConversationSpace theme={props.theme} loaded={loadedMessages} conversations={conversations}/>
-            <DashboardChatSpaceInput theme={props.theme} activeConversation={ activeConversation?.userMail } />
+            <DashboardChatConversationSpace theme={props.theme} loaded={loadedMessages} conversations={conversations} messagesEndRef={props.messagesEndRef}/>
+            <DashboardChatSpaceInput theme={props.theme} activeConversation={ activeConversation?.userMail } scrollToBottom={props.scrollToBottom} />
         </Box>
     );
 };
 DashboardChatSpace.propTypes = {
-    theme: PropTypes.object.isRequired
+    theme: PropTypes.object.isRequired,
+    messagesEndRef: PropTypes.object.isRequired,
+    scrollToBottom: PropTypes.func.isRequired
 };
 export default DashboardChatSpace;

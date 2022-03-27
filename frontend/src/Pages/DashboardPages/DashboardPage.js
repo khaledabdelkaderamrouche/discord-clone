@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import PropTypes from "prop-types";
 import { Grid } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
@@ -14,12 +14,17 @@ import {
     getPendingInvitations,
     updateFriends, updateFriendsStatus
 } from "../../features/friendsSlice";
+import { updateConversations } from "../../features/chatSlice";
 // TODO REFACTOR THEME TO CONTEXTE
 const DashboardPage = () => {
     const theme = useSelector((state) => state.theme.value);
 
     const user = JSON.parse(localStorage.getItem("userDetails"));
     const dispatch = useDispatch();
+    const messagesEndRef = useRef(null);
+    const scrollToBottom = () => {
+        messagesEndRef.current.scrollIntoView({ behavior: "smooth", block: "end", inline: "nearest" });
+    };
 
     useEffect(() => {
         if (!user) { dispatch(logout()); } else {
@@ -48,6 +53,11 @@ const DashboardPage = () => {
         socket.on("online-users", (data) => {
             const { onlineUsers } = data;
             dispatch(updateFriendsStatus({ onlineUsers }));
+        });
+        socket.on("new-message", (data) => {
+            const { message } = data;
+            dispatch(updateConversations({ message }));
+            scrollToBottom();
         });
     });
     return (
@@ -83,6 +93,8 @@ const DashboardPage = () => {
                 />
                 <DashboardChatSpace
                     theme={theme}
+                    messagesEndRef={messagesEndRef}
+                    scrollToBottom={scrollToBottom}
                 />
             </Grid>
 

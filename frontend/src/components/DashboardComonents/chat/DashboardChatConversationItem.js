@@ -62,10 +62,10 @@ const DashboardChatConversationItem = (props) => {
                                 <MsgTime color={color2}>{props.dateTime}</MsgTime>
                             </WrapperRight>
                             <UserText color1={color1}
-                                      additionalStyles={{
-                                display: "flex",
-                                flexDirection: "row-reverse"
-                            }}>
+                                additionalStyles={{
+                                    display: "flex",
+                                    flexDirection: "row-reverse"
+                                }}>
                                 {props.children}</UserText>
 
                         </>

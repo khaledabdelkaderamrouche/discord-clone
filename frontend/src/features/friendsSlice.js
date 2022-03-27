@@ -1,4 +1,4 @@
-import { createSlice, current } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 import * as api from "../api/api";
 import { displayAlert } from "./alertSlice";
 import { handleResponse } from "../utils/ErrorHandler";

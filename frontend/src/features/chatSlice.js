@@ -1,7 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import * as api from "../api/api";
 import { displayAlert } from "./alertSlice";
-import { useSelector } from "react-redux";
 
 const initialState = {
     activeConversation: null,
@@ -23,6 +22,12 @@ export const chatSlice = createSlice({
         },
         sendMessageSuccess: (state, action) => {
             state.value.conversations.push(action.payload);
+        },
+        updateConversationsSuccess: (state, action) => {
+            const { userMail, message } = { ...action.payload };
+            const activeConversation = state.value.activeConversation.userMail;
+            console.info(message);
+            if (activeConversation === userMail) { state.value.conversations.push(message); }
         }
 
     }
@@ -72,9 +77,14 @@ export const sendMessage = (data) => async (dispatch) => {
         return console.error(e.message);
     }
 };
+export const updateConversations = (data) => async (dispatch) => {
+    const { message } = data;
+    dispatch(updateConversationsSuccess(message));
+};
 export const {
     setActiveConversation,
     getConversationsSuccess,
-    sendMessageSuccess
+    sendMessageSuccess,
+    updateConversationsSuccess
 } = chatSlice.actions;
 export default chatSlice.reducer;

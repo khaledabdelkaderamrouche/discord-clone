@@ -53,8 +53,18 @@ const emitAcceptedInvitation = (receiverId, sender) =>{
         friend:sender
     });
 };
+const emitNewMessage = (receiverId, message) =>{
+
+    const io=getSocketServerInstance();
+    const receiver = getUser(receiverId);
+    if(receiver)
+        io.to(receiver.socketId).emit('new-message', {
+            message:message
+        });
+};
 module.exports ={
     registerSocketServer,
     emitNewInvitation,
-    emitAcceptedInvitation
+    emitAcceptedInvitation,
+    emitNewMessage
 }
